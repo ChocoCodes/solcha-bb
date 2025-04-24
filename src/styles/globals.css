@@ -8,8 +8,6 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +15,17 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+.masked-sm {
+  mask-image: url('/assets/mask-sm.svg');
+  -webkit-mask-image: url('/assets/mask-sm.svg');
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center bottom;
+  -webkit-mask-position: center bottom;
 }
 
 body {
