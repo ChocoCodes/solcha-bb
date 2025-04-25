@@ -4,7 +4,11 @@ import { auth } from '@/firebase/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { Loading } from '@/components/Footer';
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType>({
+    currentUser: null,
+    isLoggedIn: false,
+    loading: true,
+});
 
 // Hook to use AuthContext in other components
 export const useAuth = () => useContext(AuthContext);

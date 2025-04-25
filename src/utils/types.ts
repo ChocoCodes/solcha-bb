@@ -22,3 +22,8 @@ export type SignInCredentials = {
     email: string;
     password: string;
 }
+
+export type Providers = {
+    name: string;
+    img_link: string;
+}

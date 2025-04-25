@@ -1,12 +1,13 @@
+import { Providers } from "./types";
 export const passwordPattern = '(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)';
 
-export const OAuthProviders = [
+export const OAuthProviders: Providers[] = [
     {
-        name: 'Google',
+        name: 'GOOGLE',
         img_link: '/assets/Google-logo.png',
     },
     {
-        name: 'Facebook',
+        name: 'FACEBOOK',
         img_link: '/assets/Facebook-logo.png',
     }
 ];
