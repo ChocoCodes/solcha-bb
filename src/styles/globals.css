@@ -5,9 +5,13 @@
   --foreground: #171717;
 }
 
+
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-charcoal: #0A0A0A;
+  --color-clear-bg: rgba(255, 255, 255, 0.10);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,19 +21,56 @@
   }
 }
 
-.masked-sm {
-  mask-image: url('/assets/mask-sm.svg');
-  -webkit-mask-image: url('/assets/mask-sm.svg');
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: bold;
+}
+
+.mask {
   mask-size: cover;
   -webkit-mask-size: cover;
   mask-repeat: no-repeat;
   -webkit-mask-repeat: no-repeat;
   mask-position: center bottom;
   -webkit-mask-position: center bottom;
+
+  .sm {
+    mask-image: url('/assets/mask-sm.svg');
+    -webkit-mask-image: url('/assets/mask-sm.svg');
+  }
+
+  .lg {
+    mask-image: url('/assets/mask-lg.svg');
+    -webkit-mask-image: url('/assets/mask-lg.svg');
+  }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.spinner {
+  border: 5px solid var(--color-clear-bg);
+  border-top: 5px solid #FF5208;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  animation: spin 2s linear infinite;
 }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

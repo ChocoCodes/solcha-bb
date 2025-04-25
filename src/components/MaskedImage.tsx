@@ -5,7 +5,7 @@ const MaskedImage = () => {
             <Image
             src="/assets/Kanlaon.png"
             alt="Image of Mount Kanlaon"
-            className="object-fit masked-sm"
+            className="object-fit mask sm"
             fill
             priority
             />
