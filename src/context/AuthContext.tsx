@@ -1,15 +1,13 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { AuthProviderProps, AuthContextType } from '@/utils/types';
-import { auth } from '@/config/firebase';
+import { auth } from '@/firebase/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { Loading } from '@/components/Footer';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Hook to use AuthContext in other components
-export const useAuth = () => {
-    return useContext(AuthContext);
-}
+export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);

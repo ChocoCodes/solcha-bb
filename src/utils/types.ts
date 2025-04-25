@@ -17,3 +17,8 @@ export interface AuthContextType {
 export interface AuthProviderProps {
     children: React.ReactNode;
 }
+
+export type SignInCredentials = {
+    email: string;
+    password: string;
+}
