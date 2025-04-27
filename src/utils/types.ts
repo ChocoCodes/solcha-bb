@@ -12,6 +12,10 @@ export interface AuthContextType {
     currentUser: User | null;
     isLoggedIn: boolean;
     loading: boolean;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+    handleSignOut: () => Promise<void>;
 }
 
 export interface AuthProviderProps {

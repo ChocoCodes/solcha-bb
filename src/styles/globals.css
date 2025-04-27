@@ -1,32 +1,5 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-charcoal: #0A0A0A;
-  --color-clear-bg: rgba(255, 255, 255, 0.10);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-}
-
 @font-face {
   font-family: 'Poppins';
   src: url('/fonts/Poppins-Regular.woff2') format('woff2');
@@ -41,6 +14,18 @@ body {
   font-style: bold;
 }
 
+@theme inline {
+  --color-charcoal: #0A0A0A;
+  --color-clear-bg: rgba(255, 255, 255, 0.10);
+}
+
+body {
+  background: var(--color-charcoal);
+  color: #ffffff;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+}
+
+
 .mask {
   mask-size: cover;
   -webkit-mask-size: cover;
@@ -48,16 +33,16 @@ body {
   -webkit-mask-repeat: no-repeat;
   mask-position: center bottom;
   -webkit-mask-position: center bottom;
+}
 
-  .sm {
-    mask-image: url('/assets/mask-sm.svg');
-    -webkit-mask-image: url('/assets/mask-sm.svg');
-  }
+.sm {
+  mask-image: url('/assets/mask-sm.svg');
+  -webkit-mask-image: url('/assets/mask-sm.svg');
+}
 
-  .lg {
-    mask-image: url('/assets/mask-lg.svg');
-    -webkit-mask-image: url('/assets/mask-lg.svg');
-  }
+.lg {
+  mask-image: url('/assets/mask-lg.svg');
+  -webkit-mask-image: url('/assets/mask-lg.svg');
 }
 
 .spinner {

@@ -1,15 +1,13 @@
 "use client";
 
-import MaskedImage from '@/components/MaskedImage';
-import InputField from '@/components/InputField';
-import {Footer, Loading} from '@/components/Footer';
-import { useState } from 'react';
-export default function Home() {
-  const [password, setPassword] = useState('');
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-  return (
-    <>
-      <InputField type="password" id="password" value={password} func={handlePasswordChange} placeholder="Password" />
-    </>
-  );
+import { useAuth } from '@/context/AuthContext';
+
+export default function Bulletin() {
+    const { handleSignOut } = useAuth();
+    return (
+        <>
+            <h1>Test</h1>
+            <button onClick={ handleSignOut } className="w-50 h-10">Sign Out</button>
+        </>
+    )
 }

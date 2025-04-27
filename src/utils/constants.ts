@@ -11,3 +11,8 @@ export const OAuthProviders: Providers[] = [
         img_link: '/assets/Facebook-logo.png',
     }
 ];
+
+export const Routes = {
+    HOME: '/',
+    SIGNIN: 'login',
+}

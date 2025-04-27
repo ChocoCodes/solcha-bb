@@ -16,6 +16,7 @@ const InputField: React.FC<InputFieldProps> = ({type, value, id, func, placehold
                 placeholder={ placeholder } 
                 autoComplete="off"
                 pattern= { type === 'password' ? passwordPattern : undefined }
+                required
             />
             { type === 'password' && (
                 <button 

@@ -9,7 +9,7 @@ const Footer = () => {
 
 const Loading= () => {
     return <>
-        <div className="flex items-center justify-center w-[500px] h-[500px]">
+        <div className="flex items-center justify-center w-screen h-screen">
             <div className="spinner"></div>
         </div>
     </>

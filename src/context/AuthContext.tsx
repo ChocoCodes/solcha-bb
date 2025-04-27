@@ -1,14 +1,23 @@
+"use client";
+
 import { useState, useEffect, createContext, useContext } from 'react';
 import { AuthProviderProps, AuthContextType } from '@/utils/types';
 import { auth } from '@/firebase/firebase';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged, User, signOut } from 'firebase/auth';
 import { Loading } from '@/components/Footer';
+import { useRouter } from 'next/navigation';
 
-const AuthContext = createContext<AuthContextType>({
+const defaultAuthContextValue: AuthContextType = {
     currentUser: null,
     isLoggedIn: false,
     loading: true,
-});
+    setLoading: () => {},
+    setCurrentUser: () => {},
+    setIsLoggedIn: () => {},
+    handleSignOut: async () => {}
+}
+
+const AuthContext = createContext<AuthContextType>(defaultAuthContextValue);
 
 // Hook to use AuthContext in other components
 export const useAuth = () => useContext(AuthContext);
@@ -17,36 +26,62 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const router = useRouter();
 
-    useEffect(() => {
-        // Check cache first if user is already logged in
-        const cachedUser = localStorage.getItem('authUser');
-        if(cachedUser) {
-            setCurrentUser(JSON.parse(cachedUser));
-            setIsLoggedIn(true);
-            setLoading(false);
-        }
-        // Listen for auth state changes
-        const unsubscribe = onAuthStateChanged(auth, initUser);
-        return unsubscribe;
-    }, [])
+    const handleSignOut = async () => {
+        await signOut(auth);
+        localStorage.removeItem('authUser');
+        setCurrentUser(null);
+        setIsLoggedIn(false);
+        setLoading(false);
+        router.push('/login');
+    }
 
     const initUser = async (user: User | null) => {
         if (user) {
-            setCurrentUser({ ...user });
+            setCurrentUser(user);
             setIsLoggedIn(true);
-            localStorage.setItem('authUser', JSON.stringify(user)); // Set cache to current user
+            // Store important user info in local storage
+            const _userInfo = {
+                uid: user.uid,
+                email: user.email,
+                displayName: user.displayName,
+            };
+
+            localStorage.setItem('authUser', JSON.stringify(_userInfo)); // Set cache to current user
         } else {
             // Clean up cache if user is null
+            setCurrentUser(null);
+            setIsLoggedIn(false);
             localStorage.removeItem('authUser');
         }
         setLoading(false);
     }
 
+    useEffect(() => {
+        // Check cache first if user is already logged in
+        try {
+            const cachedUser = localStorage.getItem('authUser');
+            if(cachedUser) {
+                setIsLoggedIn(true);
+            }
+        } catch (error) {
+            console.error("Error checking cache:", error);
+            alert(error)
+        }
+        // Listen for auth state changes
+        const unsubscribe = onAuthStateChanged(auth, initUser);
+        return () => unsubscribe();
+    }, [])
+
     const value = {
         currentUser,
         isLoggedIn,
-        loading
+        loading,
+        setLoading,
+        setCurrentUser,
+        setIsLoggedIn,
+        handleSignOut,
     }
 
     return (
