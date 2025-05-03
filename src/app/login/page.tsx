@@ -7,7 +7,7 @@ export default function SignIn() {
         <>
             <MaskedImage />
             <h1 className="mt-4 text-4xl font-bold text-center">bantay<br/><span>bulkan</span></h1>
-            <main className="flex h-screen flex-col items-center justify-between pt-20">
+            <main className="flex flex-col items-center justify-between pt-20">
                 <SignInForm />
             </main>
             <Footer />

@@ -4,7 +4,7 @@ import { useState, useEffect, createContext, useContext } from 'react';
 import { AuthProviderProps, AuthContextType } from '@/utils/types';
 import { auth } from '@/firebase/firebase';
 import { onAuthStateChanged, User, signOut } from 'firebase/auth';
-import { Loading } from '@/components/Footer';
+import { Loading } from '@/components/Loading';
 import { useRouter } from 'next/navigation';
 
 const defaultAuthContextValue: AuthContextType = {

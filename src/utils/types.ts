@@ -1,4 +1,5 @@
 import { User } from 'firebase/auth';
+import { SidebarLabelText } from './constants';
 
 export type InputFieldProps = {
     type: string;
@@ -31,3 +32,11 @@ export type Providers = {
     name: string;
     img_link: string;
 }
+
+export type SidebarItemProps = {
+    label: string;
+    func: () => void;
+}
+
+export type SidebarRouteKey = keyof typeof SidebarLabelText; // "BULLETIN" | "MAP" | "CHATBOT" | "LOGIN"
+export type SidebarLabels = typeof SidebarLabelText[SidebarRouteKey]; // "/" | "/map" | "/chatbot" | "/login"

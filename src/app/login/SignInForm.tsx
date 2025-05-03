@@ -2,7 +2,7 @@
 
 import { OAuthProviders } from "@/utils/constants";
 import { useAuth } from "@/context/AuthContext";
-import { Loading } from '@/components/Footer';
+import { Loading } from '@/components/Loading';
 import { Providers } from '@/utils/types';
 import * as Auth from "@/firebase/auth";
 import Image from 'next/image';
@@ -11,7 +11,8 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import InputField from '@/components/InputField';
 import { Routes } from '@/utils/constants';
-const OAuthLogin =  () => {
+
+const OAuthLoginIcons =  () => {
     const { loading, setCurrentUser, setIsLoggedIn, setLoading } = useAuth();
 
     const handleOAuthLogin = async (provider: Providers) => {
@@ -38,7 +39,7 @@ const OAuthLogin =  () => {
 
     return (
         <div className="flex gap-2 justify-center items-center">
-            { loading ? <Loading /> : OAuthProviders.map(provider => {
+            {OAuthProviders.map(provider => {
                 return (
                     <button 
                         key={ provider.name } 
@@ -63,13 +64,14 @@ const SignInForm = () => {
     const pathname = usePathname();
 
     useEffect(() => {
-        if (loading) return;
-        if(isLoggedIn && pathname !== Routes.HOME) {
+        if(isLoggedIn && pathname !== Routes.Bulletin) {
             router.push('/');
-        } else if(!isLoggedIn && pathname !== Routes.SIGNIN) {
+        } else if(!isLoggedIn && pathname !== Routes.SignIn) {
             router.push('/login');
         }
     }, [isLoggedIn, router, loading]);
+
+    if(loading) return <Loading />;
 
     const handleEmailSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
         console.log(`Email: ${email}, Password: ${password}`);
@@ -95,7 +97,7 @@ const SignInForm = () => {
     }
 
     return (
-        <div className="flex flex-col gap-6 justify-center items-center">
+        <div className="flex flex-col gap-6 justify-center items-center h-60vh">
             <h1>Sign In</h1>
             <form className="flex flex-col gap-4">
                 <InputField 
@@ -113,7 +115,10 @@ const SignInForm = () => {
                     func={(e) => setPassword(e.target.value)} 
                 />
                 <button type="submit" onClick={ handleEmailSignIn } className="w-50 h-10 bg-red-500">Sign in with Email</button>
-                <button onClick={ handleForgotPassword } className="bg-transparent border-none text-white cursor-pointer hover:undeline">Forgot Password?</button>
+                <button onClick={ handleForgotPassword } className="bg-transparent border-none text-white cursor-pointer hover:underline">Forgot Password?</button>
+                <hr className="w-50 h-[4px] bg-red-500 rounded border-none"/>
+                <p className="text-center">Or sign in with:</p>
+                <OAuthLoginIcons />
             </form>
         </div>
     );

@@ -1,4 +1,7 @@
-import { Providers } from "./types";
+import { Sidebar } from "@/components/Sidebar/Sidebar";
+import { Providers, SidebarRouteKey, SidebarLabels } from "./types";
+
+
 export const passwordPattern = '(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)';
 
 export const OAuthProviders: Providers[] = [
@@ -12,7 +15,19 @@ export const OAuthProviders: Providers[] = [
     }
 ];
 
-export const Routes = {
-    HOME: '/',
-    SIGNIN: 'login',
-}
+// Sidebar labels
+export const SidebarLabelText = {
+    BULLETIN: 'Bulletin',
+    MAP: 'Map',
+    CHATBOT: 'Chatbot',
+    SIGNIN: 'SignIn',
+} as const;
+
+// Map each label to its corresponding route
+export const Routes: Record<SidebarLabels, string> = {
+    [SidebarLabelText.BULLETIN]: '/',
+    [SidebarLabelText.SIGNIN]: '/login',
+    [SidebarLabelText.MAP]: '/map',
+    [SidebarLabelText.CHATBOT]: '/chatbot'
+};
+

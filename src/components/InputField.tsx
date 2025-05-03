@@ -11,7 +11,8 @@ const InputField: React.FC<InputFieldProps> = ({type, value, id, func, placehold
         <div className="relative">
             <input 
                 type={(type === 'password' && !isPasswordVisible) ? 'password': type === 'email' ? 'email' : 'text'} 
-                value={ value } id={ id } 
+                value={ value } 
+                id={ id } 
                 onChange={ func } 
                 placeholder={ placeholder } 
                 autoComplete="off"
