@@ -1,5 +1,11 @@
 import { Providers, SidebarLabels } from "./types";
 
+// Kanlaon Coords
+export const KANLAON_COORDS = {
+    lat: 10.41175563185461,
+    lng: 123.13299748479464
+};
+export const PDZ_RADIUS = 6; // in km
 
 export const passwordPattern = '(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)';
 
