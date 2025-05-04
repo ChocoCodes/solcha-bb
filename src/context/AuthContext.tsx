@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, createContext, useContext } from 'react';
-import { AuthProviderProps, AuthContextType } from '@/utils/types';
+import { ChildProps, AuthContextType } from '@/utils/types';
 import { auth } from '@/firebase/firebase';
 import { onAuthStateChanged, User, signOut } from 'firebase/auth';
 import { Loading } from '@/components/Loading';
@@ -22,7 +22,7 @@ const AuthContext = createContext<AuthContextType>(defaultAuthContextValue);
 // Hook to use AuthContext in other components
 export const useAuth = () => useContext(AuthContext);
 
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthProvider({ children }: ChildProps) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);

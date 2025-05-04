@@ -16,7 +16,8 @@
 
 @theme inline {
   --color-charcoal: #0A0A0A;
-  --color-clear-bg: rgba(255, 255, 255, 0.10);
+  --color-clear: rgba(255, 255, 255, 0.10);
+  --color-lava: #FF4E08;
 }
 
 body {

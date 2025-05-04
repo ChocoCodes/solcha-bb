@@ -19,7 +19,7 @@ export interface AuthContextType {
     handleSignOut: () => Promise<void>;
 }
 
-export interface AuthProviderProps {
+export interface ChildProps {
     children: React.ReactNode;
 }
 
@@ -36,6 +36,8 @@ export type Providers = {
 export type SidebarItemProps = {
     label: string;
     func: () => void;
+    icon: React.ReactNode;
+    className?: string;
 }
 
 export type SidebarRouteKey = keyof typeof SidebarLabelText; // "BULLETIN" | "MAP" | "CHATBOT" | "LOGIN"

@@ -1,5 +1,4 @@
-import { Sidebar } from "@/components/Sidebar/Sidebar";
-import { Providers, SidebarRouteKey, SidebarLabels } from "./types";
+import { Providers, SidebarLabels } from "./types";
 
 
 export const passwordPattern = '(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)';
