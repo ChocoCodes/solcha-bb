@@ -15,6 +15,7 @@ export default function Bulletin() {
                         <h1 className="text-2xl font-semibold pl-2">Volcano Map</h1>
                         <VolcanoMap />
                     </div>
+                    
                 </div>
             </main>
         </>

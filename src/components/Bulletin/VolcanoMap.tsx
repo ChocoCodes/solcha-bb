@@ -26,6 +26,7 @@ const PDZCircle = () => {
             center: KANLAON_COORDS,
             radius: PDZ_RADIUS * 1000,
         })
+    
         return () => circle.setMap(null); // Clean up on unmount
     }, [map]);
     return null;
@@ -34,12 +35,15 @@ const PDZCircle = () => {
 export const VolcanoMap = () => {
     return (
         <APIProvider apiKey={ process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string }>
-            <div className="w-70 h-70 rounded-lg shadow-md mx-auto overflow-hidden">
+            <div className="w-73 h-73 rounded-lg shadow-md mx-auto touch-none overflow-hidden">
+            {/*use defaultCenter and defaultZoom as props instead of center and zoom - perform events through the map*/}
             <Map 
-                center={ KANLAON_COORDS } 
-                zoom={ 11 }
+                defaultCenter={ KANLAON_COORDS } 
+                defaultZoom={ 11 }
                 style={{ width: '100%', height: '100%' }} 
                 mapId={ process.env.NEXT_PUBLIC_MAP_ID as string }
+                disableDefaultUI={true}
+                gestureHandling={"greedy"}
             />
             <AdvancedMarker position={KANLAON_COORDS}></AdvancedMarker>
             <PDZCircle />

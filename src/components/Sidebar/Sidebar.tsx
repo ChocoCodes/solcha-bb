@@ -25,7 +25,7 @@ export const Sidebar = () => {
     return (
         <aside className={`h-screen transition-all duration-200 bg-clear ${ expanded ? 'w-9/20' : 'w-3/20' }`}>
             <nav className="flex flex-col w-full h-full justify-start items-center">
-                <div className={`w-4/5 flex justify-between align-center px-2 py-8 ${expanded ? 'border-b-2 border-gray-700' : ''}`}>
+                <div className={`w-4/5 flex items-center px-2 py-8 ${expanded ? 'border-b-2 border-gray-700 justify-between' : 'justify-center'}`}>
                     { expanded && <Image src="/assets/BB-logo.svg" alt="logo" width={48} height={48} priority/> }
                     <button onClick={ onExpand }>
                         { expanded ? <FiChevronsLeft size={32} /> : <FiChevronsRight size={32} />}
