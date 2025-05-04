@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "BantayBulkan",
   description: "desc-here",
   icons: {
-    icon: '/favicon.ico',
+    icon: '/bb-fav.ico',
   },
 };
 

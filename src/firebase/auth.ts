@@ -6,19 +6,27 @@ import {
     signInWithPopup, 
     sendPasswordResetEmail, 
     FacebookAuthProvider,
-    UserCredential
+    UserCredential,
+    updateProfile
 } from 'firebase/auth';
 import { SignInCredentials } from '@/utils/types';
 
-export const handleCreateUserByEmail = async ({email, password}: SignInCredentials): Promise<UserCredential> => {
-    return createUserWithEmailAndPassword(auth, email, password)
-        .then(userCredential => userCredential)
-        .catch(error => {
-            alert(error.message);
-            console.error("Error creating user: ", error);
-            throw error;
-        });
-}
+export const handleCreateUserByEmail = async ({ email, password }: SignInCredentials): Promise<UserCredential> => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const name = email.split('@')[0]; // Derive display name from email
+
+      if (auth.currentUser) {
+        await updateProfile(auth.currentUser, { displayName: name });
+      }
+
+      return userCredential;
+    } catch (error: any) {
+      alert(error.message);
+      console.error("Error creating user: ", error);
+      throw error;
+    }
+};
 
 export const handleEmailSignIn = async ({email, password}: SignInCredentials): Promise<UserCredential> => {
     try {
