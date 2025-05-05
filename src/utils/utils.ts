@@ -1,4 +1,5 @@
-import { BulletinPost } from './types';
+import { PostCategory, PostCategoryColors } from './constants';
+import { BulletinPost, CategoryKey } from './types';
 
 // Retrieve user cache from local storage
 export const getUserCache = () => {
@@ -11,3 +12,6 @@ export const getUserCache = () => {
 export const formatPost = (): void => {
 
 }
+
+// Get color equivalent of category
+export const getCategoryColor = (category: CategoryKey): string => PostCategoryColors[category]

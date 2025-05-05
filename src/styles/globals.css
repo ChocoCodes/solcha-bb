@@ -17,10 +17,17 @@
 }
 
 @theme inline {
+  /* Custom Setup */
   --color-charcoal: #0A0A0A;
   --color-lightgray: #C5C5C5;
   --color-clear: rgba(255, 255, 255, 0.10);
   --color-lava: #FF4E08;
+  --color-emergency: #FF3535;
+  --color-evacuation: #F57C00;
+  --color-updates: #3590FF;
+  --color-information: #7B1F82;
+  --color-help-wanted: #388E3C;
+  /* ShadCN Setup */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

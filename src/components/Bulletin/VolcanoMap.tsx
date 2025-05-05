@@ -2,12 +2,14 @@
 
 import { useEffect } from 'react';
 import { KANLAON_COORDS, PDZ_RADIUS } from '@/utils/constants';
-import { VolcanoMarkerProps } from '@/utils/types';
+import { VolcanoMarkerProps, CategoryKey } from '@/utils/types';
+import { getCategoryColor } from '@/utils/utils';
 import {
     APIProvider,
     Map,
     AdvancedMarker,
-    useMap
+    useMap,
+    Pin
 } from '@vis.gl/react-google-maps';
 
 
@@ -33,10 +35,11 @@ const PDZCircle = () => {
     return null;
 }
 
-    export const VolcanoMap = ({ postPositions }: VolcanoMarkerProps) => {
+    export const VolcanoMap = ({ posts }: VolcanoMarkerProps) => {
+
         return (
             <APIProvider apiKey={ process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string }>
-                <div className="w-80 h-80 shadow-md mx-auto touch-none overflow-hidden">
+                <div className="w-90 h-80 shadow-md mx-auto touch-none overflow-hidden">
                     {/*use defaultCenter and defaultZoom as props instead of center and zoom - perform events through the map*/}
                     <Map 
                         defaultCenter={ KANLAON_COORDS } 
@@ -46,15 +49,20 @@ const PDZCircle = () => {
                         disableDefaultUI={true}
                         gestureHandling={"greedy"}
                     >
-                        <AdvancedMarker position={KANLAON_COORDS}></AdvancedMarker>
+                        <AdvancedMarker position={KANLAON_COORDS}>
+                            <Pin background="red" />
+                        </AdvancedMarker>
                         <PDZCircle />
                         {/* Render marker of post location dynamically */}
-                        {postPositions.map((position, index) => {
+                        {posts.map((post, index) => {
+                            const color = getCategoryColor(post.category as CategoryKey);
                             return (
                                 <AdvancedMarker 
                                     key={index}
-                                    position={position}
-                                />
+                                    position={post.position}
+                                >
+                                    <Pin background={color}/>
+                                </AdvancedMarker>
                             )
                         })}
                     </Map>

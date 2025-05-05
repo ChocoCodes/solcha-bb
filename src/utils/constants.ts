@@ -1,4 +1,4 @@
-import { Providers, SidebarLabels } from "./types";
+import { Providers, SidebarLabels, CategoryKey } from "./types";
 
 // Kanlaon Coords
 export const KANLAON_COORDS = {
@@ -43,5 +43,14 @@ export const PostCategory = {
     EVACUATION: "EVACUATION",
     UPDATES: "UPDATES",
     INFORMATION:  "INFORMATION",
-    HELP_WANTED: "HELP WANTED",
+    HELP_WANTED: "HELP_WANTED",
 } as const; 
+
+// Colors are defined in CSS files
+export const PostCategoryColors: Record<CategoryKey, string> = {
+    EMERGENCY: "emergency",
+    EVACUATION: "evacuation",
+    UPDATES: "updates",
+    INFORMATION: "information",
+    HELP_WANTED: "help-wanted",
+};

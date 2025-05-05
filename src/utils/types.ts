@@ -45,7 +45,8 @@ export type SidebarRouteKey = keyof typeof SidebarLabelText; // "BULLETIN" | "MA
 export type SidebarLabels = typeof SidebarLabelText[SidebarRouteKey]; // "/" | "/map" | "/chatbot" | "/login"
 
 // Ensures `category` can only be one of the string values from PostCategory.
-type Category = (typeof PostCategory)[keyof typeof PostCategory]; 
+export type CategoryKey = keyof typeof PostCategory;
+type Category = (typeof PostCategory)[CategoryKey]; 
 
 export type BulletinPost = {
     title: string;
@@ -59,5 +60,5 @@ export type BulletinPost = {
 }
 
 export type VolcanoMarkerProps = {
-    postPositions: google.maps.LatLngLiteral[];
+    posts: BulletinPost[];
 }

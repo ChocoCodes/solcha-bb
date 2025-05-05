@@ -1,7 +1,7 @@
 "use client";
 
 import { Header } from '@/components/Header';
-import { VolcanoMap } from '@/components/Bulletin/VolcanoMap';
+import { VolcanoMap, AddPostForm } from '@/components/Bulletin/components';
 import { useAuthCheck } from '@/hooks/useAuthCheck';
 import { Loading } from '@/components/Loading';
 import { bulletinSampleData } from '@/utils/sampleData';
@@ -10,6 +10,8 @@ import { FaClockRotateLeft } from "react-icons/fa6";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import { CategoryKey } from '@/utils/types';
+import { getCategoryColor } from '@/utils/utils';
 import { 
     Card, 
     CardHeader, 
@@ -22,14 +24,17 @@ export default function Bulletin() {
     const { loading } = useAuthCheck();
     const { currentUser } = useAuth();
     const [filterBy, setFilterBy] = useState<'recent' | 'owned'>('recent');
-
+    const [showForm, setShowForm] = useState<boolean>(false);
     const filteredPosts = bulletinSampleData.filter(post => filterBy === 'owned' ? post.postedBy === currentUser?.displayName : true);
-    
+
     // Display loading screen while checking auth
     if(loading) {
         return <Loading />;
     }
     
+    const onFormClose = () => setShowForm(false);
+    const onFormOpen = () => setShowForm(true);
+
     return (
         <>
             <main className="flex w-screen h-screen">
@@ -37,7 +42,7 @@ export default function Bulletin() {
                     <Header currentPage={"Bulletin"} />
                     <div className="flex flex-col gap-3">
                         <h1 className="text-2xl font-semibold pl-2">Volcano Map</h1>
-                        <VolcanoMap postPositions={filteredPosts.map(post => post.position)}/>
+                        <VolcanoMap posts={filteredPosts}/>
                     </div>
                     <div className="flex flex-col gap-7 p-5">
                         <h1 className="text-3xl font-regular text-center">Community Bulletin</h1>
@@ -56,18 +61,23 @@ export default function Bulletin() {
                                     My Posts
                                 </button>
                             </div>
-                            <button className="flex items-center justify-center bg-red-500 p-2 rounded-lg">
+                            <button 
+                                className="flex items-center justify-center bg-red-500 p-2 rounded-lg"
+                                onClick={ onFormOpen }
+                            >
                                 <HiOutlinePlusSm className="text-white text-md cursor-pointer" />
                                 <p className="text-md text-white">New</p>
                             </button>
+                            { showForm && <AddPostForm onClose={ onFormClose } />}
                         </div>
                         <div className="flex flex-col gap-7">
                             {filteredPosts.map((post, index) => {
+                                const tagBgColor = `bg-${getCategoryColor(post.category as CategoryKey)}`;
                                 {/* Reset default padding, margin, border styled by ShadCN in the Card component before custom styling*/}
                                 return (
                                     <Card 
                                         key={index} 
-                                        className="border-none w-full max-w-md p-0 bg-[#202020] shadow-md flex flex-col gap-2 items-center rounded-lg"
+                                        className="border-none p-0 w-full max-w-md bg-[#202020] shadow-md flex flex-col gap-2 items-center rounded-lg"
                                     >
                                         <CardHeader className="relative w-full p-0 m-0">
                                             <Image 
@@ -78,7 +88,7 @@ export default function Bulletin() {
                                                 height={300}
                                                 priority
                                             />
-                                            <p className="absolute bottom-4 left-2 bg-red-500 py-1 px-2 text-white text-xs rounded-full">{ post.category }</p>
+                                            <p className={`absolute bottom-4 left-6 py-1 px-3 ${ tagBgColor } text-white text-xs font-normal rounded-full`}>{post.category.replace('_', ' ')}</p>
                                         </CardHeader>
                                         <CardContent className="w-full flex flex-col gap-4">
                                             <div className="flex flex-col items-left">
