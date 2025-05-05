@@ -28,6 +28,7 @@ const OAuthLoginIcons =  () => {
                 setCurrentUser(user);
                 setIsLoggedIn(true);
                 localStorage.setItem('authUser', JSON.stringify(user));
+                // TODO: Add user data to users collection in Firestore
             }
         } catch (error) {
             console.error("Error during OAuth login:", error);

@@ -13,8 +13,10 @@ import { SignInCredentials } from '@/utils/types';
 
 export const handleCreateUserByEmail = async ({ email, password }: SignInCredentials): Promise<UserCredential> => {
     try {
+      // Derive display name from email if login is from email/pass 
+      // [Check for Google logins]
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const name = email.split('@')[0]; // Derive display name from email
+      const name = userCredential.user.displayName ?  userCredential.user.displayName : email.split('@')[0];
 
       if (auth.currentUser) {
         await updateProfile(auth.currentUser, { displayName: name });
