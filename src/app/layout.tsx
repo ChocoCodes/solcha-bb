@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AuthProvider } from "@/context/AuthContext";
-import { SidebarProvider } from "@/context/SidebarContext";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -22,9 +21,7 @@ export default function RootLayout({
         className={`antialiased`}
       >
         <AuthProvider>
-          <SidebarProvider>
-            {children}
-          </SidebarProvider>
+          {children}
         </AuthProvider>
       </body>
     </html>

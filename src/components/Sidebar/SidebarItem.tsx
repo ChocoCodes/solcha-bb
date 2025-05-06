@@ -1,18 +1,14 @@
 import { SidebarItemProps } from "@/utils/types";
-import { useSidebar } from '@/context/SidebarContext';
 
 export const SidebarItem = ({label, func, icon, className}: SidebarItemProps) => {
-    const { expanded } = useSidebar();
     return (
         <button 
-            className="p-2 rounded-md items-left" 
+            className="p-4 rounded-md items-center" 
             onClick={func}
         >
-            <div className="flex items-center gap-2 align-center">
+            <div className={`flex items-center gap-2 align-center ${ className || '' }`}>
                 { icon }
-                {expanded && (
-                    <span className={`text-lg font-semibold ${ className || '' }`}>{ label }</span>
-                )}
+                <span className={`text-3xl font-semibold `}>{ label }</span>
             </div>
         </button>
     )
