@@ -86,7 +86,7 @@ export const Header = ({ currentPage }: HeaderProps) => {
             </div>
                 <h1 className="text-2xl font-bold text-left">{ currentPage }</h1>
                 <div className="w-6 none"></div>
-            {/* container for nav-items */}
+            {/* container for nav-items - pc mode */}
            </div>
         </header>
     )

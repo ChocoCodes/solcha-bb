@@ -7,13 +7,14 @@ import { Providers } from '@/utils/types';
 import * as Auth from "@/firebase/auth";
 import Image from 'next/image';
 import { auth } from '@/firebase/firebase';
-import { useRouter, usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import InputField from '@/components/InputField';
-import { Routes } from '@/utils/constants';
+import { useAuthCheck } from "@/hooks/useAuthCheck";
 
 const OAuthLoginIcons =  () => {
     const { loading, setCurrentUser, setIsLoggedIn, setLoading } = useAuth();
+
+    if(loading) return <Loading />;
 
     const handleOAuthLogin = async (provider: Providers) => {
         setLoading(true);
@@ -31,8 +32,7 @@ const OAuthLoginIcons =  () => {
                 // TODO: Add user data to users collection in Firestore
             }
         } catch (error) {
-            console.error("Error during OAuth login:", error);
-            // TODO: Add ShadCN Toast to display error
+            console.error("OAuthLoginError:", error);
         } finally {
             setLoading(false);
         }
@@ -58,24 +58,16 @@ const OAuthLoginIcons =  () => {
 }
 
 const SignInForm = () => {
+    const { loading } = useAuthCheck();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { setCurrentUser, isLoggedIn, loading } = useAuth();
-    const router = useRouter();
-    const pathname = usePathname();
+    const { setCurrentUser } = useAuth();
 
-    useEffect(() => {
-        if(isLoggedIn && pathname !== Routes.Bulletin) {
-            router.push('/');
-        } else if(!isLoggedIn && pathname !== Routes.SignIn) {
-            router.push('/login');
-        }
-    }, [isLoggedIn, router, loading]);
 
     if(loading) return <Loading />;
 
     const handleEmailSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        console.log(`Email: ${email}, Password: ${password}`);
+        console.log(`Email: ${email}, Password: ${password}`); // DB
         e.preventDefault();
         Auth.handleEmailSignIn({email, password})
             .then(_user => setCurrentUser(_user?.user))
@@ -98,9 +90,9 @@ const SignInForm = () => {
     }
 
     return (
-        <div className="flex flex-col gap-6 justify-center items-center h-60vh">
-            <h1>Sign In</h1>
-            <form className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 justify-center items-center h-60vh px-6 py-8 font-poppins">
+            <h1 className="font-normal text-2xl text-lava pb-3 text-center">SIGN IN</h1>
+            <form className="flex flex-col gap-3 items-center justify-center">
                 <InputField 
                     type="email" 
                     placeholder="Email" 
@@ -115,10 +107,9 @@ const SignInForm = () => {
                     value={ password } 
                     func={(e) => setPassword(e.target.value)} 
                 />
-                <button type="submit" onClick={ handleEmailSignIn } className="w-50 h-10 bg-red-500">Sign in with Email</button>
-                <button onClick={ handleForgotPassword } className="bg-transparent border-none text-white cursor-pointer hover:underline">Forgot Password?</button>
-                <hr className="w-50 h-[4px] bg-red-500 rounded border-none"/>
-                <p className="text-center">Or sign in with:</p>
+                <button type="submit" onClick={ handleEmailSignIn } className="w-[249.6px] h-10 px-3 mt-4 bg-ivory rounded-md text-charcoal">Enter</button>
+                <button onClick={ handleForgotPassword } className="bg-transparent border-none text-white-clear text-[12px] cursor-pointer hover:underline text-sm pt-1">Forgot Password?</button>
+                <p className="text-center text-xs">Or sign in with:</p>
                 <OAuthLoginIcons />
             </form>
         </div>
