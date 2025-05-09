@@ -4,10 +4,12 @@ import { PostCategory } from './constants';
 
 export type InputFieldProps = {
     type: string;
+    name: string;
     id: string;
     value: string;
     func: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
+    className?: string;
 }
 
 export interface AuthContextType {
@@ -37,7 +39,6 @@ export type Providers = {
 export type SidebarItemProps = {
     label: string;
     func: () => void;
-    icon: React.ReactNode;
     className?: string;
 }
 
@@ -54,11 +55,23 @@ export type BulletinPost = {
     date: string;
     category: Category;
     postedBy: string;
-    hoursAgo: number;
-    position: google.maps.LatLngLiteral;
+    hoursAgo?: number; // Dynamic calculation
+    position?: google.maps.LatLngLiteral;
     imgURL?: string;
+    postedByUID: string;
 }
 
 export type VolcanoMarkerProps = {
     posts: BulletinPost[];
+}
+
+export type UserInputData = {
+    title: string;
+    description?: string;
+    category: CategoryKey;
+}
+
+export type ImageData = {
+    file: File | null;
+    url: string;
 }

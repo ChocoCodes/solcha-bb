@@ -93,22 +93,32 @@ const SignInForm = () => {
         <div className="flex flex-col gap-3 justify-center items-center h-60vh px-6 py-8 font-poppins">
             <h1 className="font-normal text-2xl text-lava pb-3 text-center">SIGN IN</h1>
             <form className="flex flex-col gap-3 items-center justify-center">
-                <InputField 
-                    type="email" 
-                    placeholder="Email" 
-                    id="email" 
-                    value={ email } 
-                    func={(e) => setEmail(e.target.value)}
-                />
-                <InputField 
-                    type="password" 
-                    placeholder="Password" 
-                    id="password" 
-                    value={ password } 
-                    func={(e) => setPassword(e.target.value)} 
-                />
-                <button type="submit" onClick={ handleEmailSignIn } className="w-[249.6px] h-10 px-3 mt-4 bg-ivory rounded-md text-charcoal">Enter</button>
-                <button onClick={ handleForgotPassword } className="bg-transparent border-none text-white-clear text-[12px] cursor-pointer hover:underline text-sm pt-1">Forgot Password?</button>
+                <div className="flex flex-col gap-4 w-80 px-3">
+                    <InputField 
+                        type="email" 
+                        placeholder="Email" 
+                        name={"email"}
+                        id="email" 
+                        value={ email } 
+                        func={(e) => setEmail(e.target.value)}
+                    />
+                    <InputField 
+                        type="password" 
+                        placeholder="Password" 
+                        name={"password"}
+                        id="password" 
+                        value={ password } 
+                        func={(e) => setPassword(e.target.value)} 
+                    />
+                    <button 
+                        type="submit" 
+                        onClick={ handleEmailSignIn } 
+                        className="w-full h-10 px-3 mt-4 mr-auto text-center bg-ivory rounded-md text-charcoal"
+                    >
+                        Enter
+                    </button>
+                </div>
+                <button onClick={ handleForgotPassword } className="border-none text-white-clear text-[12px] cursor-pointer hover:underline text-sm pt-1">Forgot Password?</button>
                 <p className="text-center text-xs">Or sign in with:</p>
                 <OAuthLoginIcons />
             </form>

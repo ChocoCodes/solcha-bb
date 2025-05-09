@@ -72,7 +72,6 @@ export default function Bulletin() {
                         </div>
                         <div className="flex flex-col gap-7">
                             {filteredPosts.map((post, index) => {
-                                const tagBgColor = `bg-${getCategoryColor(post.category as CategoryKey)}`;
                                 {/* Reset default padding, margin, border styled by ShadCN in the Card component before custom styling*/}
                                 return (
                                     <Card 
@@ -88,7 +87,7 @@ export default function Bulletin() {
                                                 height={300}
                                                 priority
                                             />
-                                            <p className={`absolute bottom-4 left-6 py-1 px-3 ${ tagBgColor } text-white text-xs font-normal rounded-full`}>{post.category.replace('_', ' ')}</p>
+                                            <p className={`absolute bottom-4 left-6 py-1 px-3 ${getCategoryColor(post.category as CategoryKey)} text-white text-xs font-normal rounded-full`}>{post.category.replace('_', ' ')}</p>
                                         </CardHeader>
                                         <CardContent className="w-full flex flex-col gap-4">
                                             <div className="flex flex-col items-left">

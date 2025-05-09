@@ -5,17 +5,18 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { passwordPattern } from '@/utils/constants';
 
-const InputField: React.FC<InputFieldProps> = ({type, value, id, func, placeholder}) => {
+const InputField: React.FC<InputFieldProps> = ({type, name, value, id, func, placeholder, className}) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     return (
-        <div className="relative bg-[#222222] rounded-full p-2 font-poppins border-[1px] border-ivory">
+        <div className="relative rounded-md p-1 font-poppins border-[1px] border-ivory">
             <input 
-                type={(type === 'password' && !isPasswordVisible) ? 'password': type === 'email' ? 'email' : 'text'} 
+                type={(type === 'password' && !isPasswordVisible) ? 'password': type === 'email' ? 'email' : 'text'}
+                name={ name } 
                 value={ value } 
                 id={ id } 
                 onChange={ func } 
                 placeholder={ placeholder } 
-                className="w-[249.6px] px-3 py-1 placeholder:text-white focus:outline-none"
+                className={`w-80 px-3 py-1 placeholder:text-white focus:outline-none ${ className ? className : ''}`}
                 autoComplete="off"
                 pattern= { type === 'password' ? passwordPattern : undefined }
                 required

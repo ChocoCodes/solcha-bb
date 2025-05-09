@@ -48,9 +48,9 @@ export const PostCategory = {
 
 // Colors are defined in CSS files
 export const PostCategoryColors: Record<CategoryKey, string> = {
-    EMERGENCY: "emergency",
-    EVACUATION: "evacuation",
-    UPDATES: "updates",
-    INFORMATION: "information",
-    HELP_WANTED: "help-wanted",
+    EMERGENCY: "bg-emergency",
+    EVACUATION: "bg-evacuation",
+    UPDATES: "bg-updates",
+    INFORMATION: "bg-information",
+    HELP_WANTED: "bg-help-wanted",
 };

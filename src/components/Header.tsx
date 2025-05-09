@@ -3,10 +3,8 @@
 import { useState } from 'react';
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from 'next/navigation';
-import { MdSpaceDashboard } from 'react-icons/md';
 import { SidebarLabelText, Routes } from '@/utils/constants';
-import { FaMapMarkedAlt, FaSignOutAlt } from 'react-icons/fa';
-import { RiRobot2Fill } from 'react-icons/ri';
+import { FaSignOutAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import { SidebarItem } from './Sidebar/SidebarItem';
 import { useAuth } from  '@/context/AuthContext';
@@ -21,12 +19,6 @@ import {
 type HeaderProps = {
     currentPage: string;
 };
-
-const SidebarIcons = {
-    [SidebarLabelText.BULLETIN]: <MdSpaceDashboard size={32} className="hover:cursor-pointer" />,
-    [SidebarLabelText.MAP]: <FaMapMarkedAlt size={32} className="hover:cursor-pointer" />,
-    [SidebarLabelText.CHATBOT]: <RiRobot2Fill size={32} className="hover:cursor-pointer" />,
-}
 
 export const Header = ({ currentPage }: HeaderProps) => {
     const { handleSignOut } = useAuth();
@@ -52,7 +44,7 @@ export const Header = ({ currentPage }: HeaderProps) => {
                             <SheetHeader className="flex items-left flex-start p-5 border-b-2 w-full">
                                 <Image src="/assets/BB-logo-text.svg" alt="logo" width={125} height={125} loading='lazy'/> 
                             </SheetHeader>
-                            <div className="flex flex-col flex-grow gap-6">
+                            <div className="flex flex-col flex-grow gap-4">
                                 {Object.values(SidebarLabelText)
                                     .filter(label => label !== SidebarLabelText.SIGNIN)
                                     .map((label, index) => {
@@ -61,7 +53,6 @@ export const Header = ({ currentPage }: HeaderProps) => {
                                                 key={ index }
                                                 label={ label }
                                                 func={ () => push(Routes[label]) }   
-                                                icon={ SidebarIcons[label] } 
                                             />
                                         )
                                 })}
@@ -70,7 +61,6 @@ export const Header = ({ currentPage }: HeaderProps) => {
                                 <SidebarItem
                                     label={ "Sign Out" }
                                     func={ handleSignOut }
-                                    icon={ <FaSignOutAlt size={32} /> }
                                     className="text-3xl font-semibold px-5 py-3 rounded-md bg-lava"
                                 />    
                                 <Image 
