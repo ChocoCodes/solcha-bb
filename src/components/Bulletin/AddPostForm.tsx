@@ -3,12 +3,16 @@
 import { useState, useEffect } from 'react';
 import InputField from '@/components/InputField';
 import { PostCategory } from '@/utils/constants';
-import Image from 'next/image';
-import { KANLAON_COORDS } from '@/utils/constants';
 import { Checkbox } from "@/components/ui/checkbox";
 import { uploadImage } from '@/firebase/uploadImage';
 import { formatPost } from '@/utils/utils';
 import { addBulletinPost } from '@/firebase/addBulletinPost';
+import Image from 'next/image';
+import { 
+    KANLAON_COORDS, 
+    defaultInputData,
+    defaultImageData 
+} from '@/utils/constants';
 import { 
     UserInputData, 
     ImageData, 
@@ -30,15 +34,8 @@ import {
 
 
 export const AddPostForm = ({ onClose }: { onClose: () => void }) => {
-    const [userInput, setUserInput] = useState<UserInputData>({
-        title: '',
-        description: '',
-        category: PostCategory.INFORMATION // set only as default category
-    });
-    const [image, setImage] = useState<ImageData>({
-        file: null,
-        url: ''
-    });
+    const [userInput, setUserInput] = useState<UserInputData>(defaultInputData);
+    const [image, setImage] = useState<ImageData>(defaultImageData);
     const [postLocation, setPostLocation] = useState(KANLAON_COORDS);
     const [isChecked, setIsChecked] = useState<boolean>(false);
 
@@ -62,21 +59,32 @@ export const AddPostForm = ({ onClose }: { onClose: () => void }) => {
         }));
     }
 
+    const handleResetAndClose = () => {
+        setUserInput(defaultInputData);
+        setImage(defaultImageData);
+        setPostLocation(KANLAON_COORDS);
+        setIsChecked(false);
+        onClose(); // Invoke onClose function to close modal
+    }
+
     const handlePostSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();    
         // Upload Image to Cloud Storage and get the url
         const _url = await uploadImage(image.file);
-        setImage(prev => ({
-            ...prev,
-            url: _url // Update the image URL state
-        }))
         // Format the data to a Firestore document object
-        const firestoreObj: BulletinPost = formatPost({ userInput, image, postLocation });
+        const firestoreObj: BulletinPost = formatPost({ 
+            userInput, 
+            image: {
+                ...image,
+                url: _url // updated URL
+            }, 
+            postLocation 
+        });
         // [3] Save the post to Firestore
         addBulletinPost(firestoreObj);
-        // [3.5] Retrieve updated data from Firestore
         // [4] Reset form and close the modal 
         console.log(`Submitted: ${userInput.title}, ${userInput.description}, ${userInput.category}, ${image.file?.name}, ${postLocation.lat}, ${postLocation.lng}`); // DB
+        handleResetAndClose();
     }
 
     // Change the category dynamically according to CategoryKey type

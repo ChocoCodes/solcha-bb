@@ -1,5 +1,5 @@
 import { Providers, SidebarLabels, CategoryKey } from "./types";
-
+import { UserInputData, ImageData } from './types';
 // Kanlaon Coords
 export const KANLAON_COORDS = {
     lat: 10.41175563185461,
@@ -54,3 +54,14 @@ export const PostCategoryColors: Record<CategoryKey, string> = {
     INFORMATION: "bg-information",
     HELP_WANTED: "bg-help-wanted",
 };
+
+export const defaultInputData: UserInputData = {
+    title: '',
+    description: '',
+    category: PostCategory.INFORMATION // set only as default category
+}
+
+export const defaultImageData: ImageData = {
+    file: null,
+    url: ''
+}

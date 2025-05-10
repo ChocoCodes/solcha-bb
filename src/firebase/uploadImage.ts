@@ -13,12 +13,13 @@ export const uploadImage = async (file: File | null): Promise<string> => {
     const filename = `${v4()}-${file.name}`;
     // Access user info from local storage
     const currentUser = getUserCache();
+    console.log('currentUser: ', currentUser);
+    console.log('type: ', typeof currentUser);
     if(!currentUser) {
         throw new Error('FileUploadError: User is not logged in.');
     }
-    const parsedUser = JSON.parse(currentUser as string);
     // Create a reference to the storage location where the file is uploaded
-    const storageRef = ref(storage, `bulletin_posts/${parsedUser.uid}/${filename}`);
+    const storageRef = ref(storage, `bulletin_posts/${currentUser.uid}/${filename}`);
     
     // Upload the file to storage and return the download URL
     try {

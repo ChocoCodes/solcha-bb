@@ -16,7 +16,7 @@ const InputField: React.FC<InputFieldProps> = ({type, name, value, id, func, pla
                 id={ id } 
                 onChange={ func } 
                 placeholder={ placeholder } 
-                className={`w-80 px-3 py-1 placeholder:text-white focus:outline-none ${ className ? className : ''}`}
+                className={`w-full px-3 py-1 placeholder:text-white focus:outline-none ${ className ? className : ''}`}
                 autoComplete="off"
                 pattern= { type === 'password' ? passwordPattern : undefined }
                 required

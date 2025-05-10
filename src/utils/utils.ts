@@ -12,18 +12,18 @@ export const getUserCache = () => {
 
 // Format bulletin post to BulletinPost type
 export const formatPost = ({ userInput, image, postLocation }: RawPostFormat): BulletinPost => {
-    const cacheInfo = getUserCache();
+    const cachedUserInfo = getUserCache();
     const user = { ...userInput };
     const { url } = image;
     const { lat, lng } = postLocation;
     const position = new GeoPoint(lat, lng);
     const currentTimestamp = Timestamp.now();
     // Create a reference to the users document to link the post
-    const userRef = doc(db, 'users', cacheInfo.uid);
+    const userRef = doc(db, 'users', cachedUserInfo.uid);
     return {
         ...user,
         date: currentTimestamp,
-        postedBy: cacheInfo.name,
+        postedBy: cachedUserInfo.displayName,
         postedByUID: userRef,
         position: position,
         imgURL: url
