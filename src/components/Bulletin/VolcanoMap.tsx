@@ -50,22 +50,22 @@ const PDZCircle = () => {
                         gestureHandling={"greedy"}
                     >
                         <AdvancedMarker position={KANLAON_COORDS}>
-                            <Pin background="red" />
+                            <Pin background="red"/>
                         </AdvancedMarker>
                         <PDZCircle />
                         {/* Render marker of post location dynamically */}
                         {posts.map((post, index) => {
+                            if(!post.position) return null; // Skip if position is not available
                             const color = getCategoryColor(post.category as CategoryKey);
                             return (
                                 <AdvancedMarker 
                                     key={index}
-                                    position={
-                                        post.position ? {
-                                            lat: post.position.latitude,
-                                            lng: post.position.longitude
-                                        } : null
-                                    }
+                                    position={{
+                                        lat: post.position.latitude,
+                                        lng: post.position.longitude
+                                    }}
                                 >
+                                    {/* TODO: Fix by using hex code directly and change glyph color also */}
                                     <Pin background={color}/>
                                 </AdvancedMarker>
                             )
