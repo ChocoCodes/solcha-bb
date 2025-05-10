@@ -16,7 +16,7 @@ export const useAuthCheck = () => {
         } else if(!isLoggedIn && pathname !== Routes.SignIn) {
             push('/login');
         }
-    }, [isLoggedIn, currentUser, loading])
+    }, [isLoggedIn, currentUser, loading, pathname, push])
 
     return { isLoggedIn, currentUser, loading };
 }

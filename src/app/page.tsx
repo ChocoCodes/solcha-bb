@@ -92,7 +92,7 @@ export default function Bulletin() {
                                         <CardContent className="w-full flex flex-col gap-4">
                                             <div className="flex flex-col items-left">
                                                 <h1 className="w-60 text-lg font-semibold text-white text-wrap">{post.title}</h1>
-                                                <p className="text-sm font-gray text-lightgray">{post.postedBy} • {post.date}</p>
+                                                <p className="text-sm font-gray text-lightgray">{post.postedBy} • {post.date.toDate().toLocaleDateString('en-US')}</p>
                                             </div>
                                             {post.description && (
                                                 <p className="text-md text-lightgray">{post.description}</p>
