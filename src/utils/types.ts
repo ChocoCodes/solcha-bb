@@ -59,7 +59,7 @@ export type BulletinPost = {
     hoursAgo?: number; // Dynamic calculation
     position?: GeoPoint;
     imgURL?: string;
-    postedByUID: DocumentReference<DocumentData, DocumentData>;
+    postedByUID?: DocumentReference<DocumentData, DocumentData>;
 }
 
 export type VolcanoMarkerProps = {
