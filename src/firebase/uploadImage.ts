@@ -25,8 +25,9 @@ export const uploadImage = async (file: File | null): Promise<string> => {
     try {
         const snapshot = await uploadBytes(storageRef, file);
         return await getDownloadURL(snapshot.ref);
-    } catch (error: any) {
-        console.error('FileUploadError: ', error.message);
+    } catch (error: unknown) {
+        const err = error as Error
+        console.error('FileUploadError: ', err.message);
         throw new Error('FileUploadError: Failed to upload file.');
     }
 }

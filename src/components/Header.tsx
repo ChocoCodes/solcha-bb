@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from 'next/navigation';
 import { SidebarLabelText, Routes } from '@/utils/constants';
-import { FaSignOutAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import { SidebarItem } from './Sidebar/SidebarItem';
 import { useAuth } from  '@/context/AuthContext';

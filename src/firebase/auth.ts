@@ -13,20 +13,21 @@ import { SignInCredentials } from '@/utils/types';
 
 export const handleCreateUserByEmail = async ({ email, password }: SignInCredentials): Promise<UserCredential> => {
     try {
-      // Derive display name from email if login is from email/pass 
-      // [Check for Google logins]
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const name = userCredential.user.displayName ?  userCredential.user.displayName : email.split('@')[0];
+        // Derive display name from email if login is from email/pass 
+        // [Check for Google logins]
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const name = userCredential.user.displayName ?  userCredential.user.displayName : email.split('@')[0];
 
-      if (auth.currentUser) {
-        await updateProfile(auth.currentUser, { displayName: name });
-      }
+        if (auth.currentUser) {
+            await updateProfile(auth.currentUser, { displayName: name });
+        }
 
-      return userCredential;
-    } catch (error: any) {
-      alert(error.message);
-      console.error("Error creating user: ", error);
-      throw error;
+        return userCredential;
+    } catch (error: unknown) {
+        const err = error as Error;
+        alert(err.message);
+        console.error("CreateUserByEmailError: ", err);
+        throw error;
     }
 };
 
@@ -34,15 +35,16 @@ export const handleEmailSignIn = async ({email, password}: SignInCredentials): P
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         return userCredential;
-    } catch (error: any) {
-        if (error.code === 'auth/user-not-found') {
+    } catch (error: unknown) {
+        const err = error as { code: string, message: string };
+        if (err.code === 'auth/user-not-found') {
             const shouldSignUp = confirm("User not found. Would you like to sign up?");
             if(shouldSignUp) {
                 return await handleCreateUserByEmail({email, password});
             }
         }
-        alert(error.message);
-        console.error("Error signing in with email/password: ", error);
+        alert(err.message);
+        console.error("EmailSignInError: ", err);
         throw error;
     }
 }

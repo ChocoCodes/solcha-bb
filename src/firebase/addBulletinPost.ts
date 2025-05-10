@@ -9,7 +9,8 @@ export const addBulletinPost = async (post: BulletinPost): Promise<void> => {
     try {
         await addDoc(bulletinPostsRef, post);
         console.log('Bulletin post added successfully: ', post);  
-    } catch (error: any) {
-        console.log('FirestoreDataUploadError: ', error);
+    } catch (error: unknown) {
+        const err = error as Error;
+        console.log('FirestoreDataUploadError: ', err.message);
     }
 }

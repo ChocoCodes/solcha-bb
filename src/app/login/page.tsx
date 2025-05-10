@@ -1,7 +1,5 @@
 import SignInForm from './SignInForm';
 import MaskedImage from '@/components/MaskedImage';
-import { Footer } from '@/components/Footer';
-import Image from 'next/image';
 
 export default function SignIn() {
     return (
