@@ -1,5 +1,7 @@
-import { PostCategory, PostCategoryColors } from './constants';
-import { BulletinPost, CategoryKey } from './types';
+import { doc, GeoPoint, Timestamp } from 'firebase/firestore';
+import { PostCategoryColors } from './constants';
+import { BulletinPost, CategoryKey, RawPostFormat } from './types';
+import { db } from '@/firebase/firebase';
 
 // Retrieve user cache from local storage
 export const getUserCache = () => {
@@ -9,9 +11,24 @@ export const getUserCache = () => {
 }
 
 // Format bulletin post to BulletinPost type
-export const formatPost = (): void => {
-
-}
+export const formatPost = ({ userInput, image, postLocation }: RawPostFormat): BulletinPost => {
+    const cacheInfo = getUserCache();
+    const user = { ...userInput };
+    const { url } = image;
+    const { lat, lng } = postLocation;
+    const position = new GeoPoint(lat, lng);
+    const currentTimestamp = Timestamp.now();
+    // Create a reference to the users document to link the post
+    const userRef = doc(db, 'users', cacheInfo.uid);
+    return {
+        ...user,
+        date: currentTimestamp,
+        postedBy: cacheInfo.name,
+        postedByUID: userRef,
+        position: position,
+        imgURL: url
+    };
+};
 
 // Get color equivalent of category
 export const getCategoryColor = (category: CategoryKey): string => PostCategoryColors[category]

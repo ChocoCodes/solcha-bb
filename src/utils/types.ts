@@ -1,6 +1,7 @@
 import { User } from 'firebase/auth';
 import { SidebarLabelText } from './constants';
 import { PostCategory } from './constants';
+import { DocumentData, DocumentReference, GeoPoint, Timestamp } from 'firebase/firestore';
 
 export type InputFieldProps = {
     type: string;
@@ -52,13 +53,13 @@ type Category = (typeof PostCategory)[CategoryKey];
 export type BulletinPost = {
     title: string;
     description?: string;
-    date: string;
+    date: Timestamp;
     category: Category;
     postedBy: string;
     hoursAgo?: number; // Dynamic calculation
-    position?: google.maps.LatLngLiteral;
+    position?: GeoPoint;
     imgURL?: string;
-    postedByUID: string;
+    postedByUID: DocumentReference<DocumentData, DocumentData>;
 }
 
 export type VolcanoMarkerProps = {
@@ -74,4 +75,10 @@ export type UserInputData = {
 export type ImageData = {
     file: File | null;
     url: string;
+}
+
+export type RawPostFormat = {
+    userInput: UserInputData;
+    image: ImageData;
+    postLocation: google.maps.LatLngLiteral;
 }

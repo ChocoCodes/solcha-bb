@@ -3,7 +3,12 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from './firebase';
 import { getUserCache } from '@/utils/utils';
 
-export const uploadImage = async (file: File): Promise<string> => {
+
+
+export const uploadImage = async (file: File | null): Promise<string> => {
+    if(!file) {
+        return `${process.env.NEXT_PUBLIC_STORAGE_BUCKET}/kanlaon.png`;
+    }
     // Create a unique filename using UUID
     const filename = `${v4()}-${file.name}`;
     // Access user info from local storage
