@@ -59,7 +59,12 @@ const PDZCircle = () => {
                             return (
                                 <AdvancedMarker 
                                     key={index}
-                                    position={post.position}
+                                    position={
+                                        post.position ? {
+                                            lat: post.position.latitude,
+                                            lng: post.position.longitude
+                                        } : null
+                                    }
                                 >
                                     <Pin background={color}/>
                                 </AdvancedMarker>
