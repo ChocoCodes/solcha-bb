@@ -9,7 +9,6 @@ export const bulletinSampleData: BulletinPost[] = [
         date: Timestamp.fromDate(new Date("2025-05-04")),
         category: PostCategory.HELP_WANTED,
         postedBy: "john_doe123",
-        hoursAgo: 2,
         position: new GeoPoint(10.422635, 123.076032),
     },
     {
@@ -18,7 +17,6 @@ export const bulletinSampleData: BulletinPost[] = [
         date: Timestamp.fromDate(new Date("2023-05-05")),
         category: PostCategory.INFORMATION,
         postedBy: "lgu_city123",
-        hoursAgo: 2,
         position: new GeoPoint(10.386304052026134, 123.21657344906396)
     },
     {
@@ -27,7 +25,13 @@ export const bulletinSampleData: BulletinPost[] = [
         date: Timestamp.fromDate(new Date("2023-05-05")),
         category: PostCategory.INFORMATION,
         postedBy: "miyal74409",
-        hoursAgo: 3,
         position: new GeoPoint(10.386304052026134, 123.21657344906396),
     }
-] 
+]
+
+// Sample data when user is inside the 6KM PDZ
+// (CABAGNAAN Barangay Hall)
+export const simulationLocInPDZ = {
+    lat: 10.363286818635078, 
+    lng: 123.11906410683196
+}

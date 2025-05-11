@@ -11,9 +11,7 @@ export const useAuthCheck = () => {
     const pathname = usePathname();
     
     useEffect(() => {   
-        if(isLoggedIn && pathname !== Routes.Bulletin) {
-            push('/');
-        } else if(!isLoggedIn && pathname !== Routes.SignIn) {
+        if(!isLoggedIn && pathname !== Routes.SignIn) {
             push('/login');
         }
     }, [isLoggedIn, currentUser, loading, pathname, push])

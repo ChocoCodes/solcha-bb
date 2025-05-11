@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { SidebarLinks } from './Sidebar/SidebarLinks';
 import { SidebarItem } from './Sidebar/SidebarItem'
@@ -21,15 +20,14 @@ type HeaderProps = {
 
 export const Header = ({ currentPage }: HeaderProps) => {
     const { handleSignOut } = useAuth();
-    const { push } = useRouter();
     const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
-    console.log(isSheetOpen);
+
 
     return (
         <header className="text-center p-4 lg:px-10 lg:py-2 border-b-2 border-gray-500">
            <div className="flex justify-between items-center">
             {/* Sheet container for sidebar */}
-            <div className="block md:hidden">
+            <div className="block md:hidden ">
                     <Sheet open={ isSheetOpen } onOpenChange={ setIsSheetOpen }>
                         <SheetTrigger className="text-2xl cursor-pointer" asChild>
                             <button className="p-2">
@@ -38,7 +36,7 @@ export const Header = ({ currentPage }: HeaderProps) => {
                         </SheetTrigger>
                         <SheetContent
                             side="left"
-                            className="flex flex-col items-left justify-center bg-charcoal p-4"
+                            className="flex flex-col items-left justify-center backdrop-blur-xs bg-charcoal/80 p-4"
                         >
                             <SheetHeader className="flex items-left flex-start p-5 border-b-2 w-full">
                                 <Image src="/assets/BB-logo-text.svg" alt="logo" width={125} height={125} loading='lazy'/> 
@@ -69,7 +67,7 @@ export const Header = ({ currentPage }: HeaderProps) => {
                 <SidebarItem
                     label={ "Sign Out" }
                     func={ handleSignOut }
-                    className="text-3xl font-semibold px-5 py-3 rounded-md bg-lava hover:cursor-pointer hover:bg-red-600 transition no-underline"
+                    className="hidden md:flex text-3xl font-semibold px-3 py-2 rounded-md bg-lava hover:cursor-pointer hover:bg-red-600 transition no-underline"
                 />  
            </div>
         </header>
