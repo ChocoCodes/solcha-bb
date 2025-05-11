@@ -51,12 +51,12 @@ export type CategoryKey = keyof typeof PostCategory;
 type Category = (typeof PostCategory)[CategoryKey]; 
 
 export type BulletinPost = {
+    id?: string;
     title: string;
     description?: string;
     date: Timestamp;
     category: Category;
     postedBy: string;
-    hoursAgo?: number; // Dynamic calculation
     position?: GeoPoint;
     imgURL?: string;
     postedByUID?: DocumentReference<DocumentData, DocumentData>;

@@ -1,23 +1,14 @@
 "use client";
 
 import { Header } from '@/components/Header';
-import { VolcanoMap, AddPostForm } from '@/components/Bulletin/components';
-import { useAuthCheck } from '@/hooks/useAuthCheck';
+import { VolcanoMap, AddPostForm, Post } from '@/components/Bulletin/components';
+import { useAuthCheck, useBulletinPosts } from '@/hooks/hooks';
 import { Loading } from '@/components/Loading';
 import { bulletinSampleData } from '@/utils/sampleData';
-import Image from 'next/image';
-import { FaClockRotateLeft } from "react-icons/fa6";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { CategoryKey } from '@/utils/types';
-import { getCategoryColor } from '@/utils/utils';
-import { 
-    Card, 
-    CardHeader, 
-    CardFooter, 
-    CardContent 
-} from '@/components/ui/card';
+
 
 export default function Bulletin() {
     // Check if user is logged in - redirect to sign in if not through useAuthCheck
@@ -25,10 +16,12 @@ export default function Bulletin() {
     const { currentUser } = useAuth();
     const [filterBy, setFilterBy] = useState<'recent' | 'owned'>('recent');
     const [showForm, setShowForm] = useState<boolean>(false);
-    const filteredPosts = bulletinSampleData.filter(post => filterBy === 'owned' ? post.postedBy === currentUser?.displayName : true);
+    // Fetch bulletin posts from Firestore
+    const { posts, loading: isPostsLoading } = useBulletinPosts();
+    const filteredPosts = posts.filter(post => filterBy === 'owned' ? post.postedBy === currentUser?.displayName : true);
 
     // Display loading screen while checking auth
-    if(loading) {
+    if(loading || isPostsLoading) {
         return <Loading />;
     }
     
@@ -71,40 +64,9 @@ export default function Bulletin() {
                             { showForm && <AddPostForm onClose={ onFormClose } />}
                         </div>
                         <div className="flex flex-col gap-7">
-                            {filteredPosts.map((post, index) => {
-                                {/* Reset default padding, margin, border styled by ShadCN in the Card component before custom styling*/}
+                            {filteredPosts.map(post => {
                                 return (
-                                    <Card 
-                                        key={index} 
-                                        className="border-none p-0 w-full max-w-md bg-[#202020] shadow-md flex flex-col gap-2 items-center rounded-lg"
-                                    >
-                                        <CardHeader className="relative w-full p-0 m-0">
-                                            <Image 
-                                                src="/assets/Kanlaon.png"
-                                                alt={post.title}
-                                                className="w-full p-0 rounded-t-sm"
-                                                width={300}
-                                                height={300}
-                                                priority
-                                            />
-                                            <p className={`absolute bottom-4 left-6 py-1 px-3 ${getCategoryColor(post.category as CategoryKey)} text-white text-xs font-normal rounded-full`}>{post.category.replace('_', ' ')}</p>
-                                        </CardHeader>
-                                        <CardContent className="w-full flex flex-col gap-4">
-                                            <div className="flex flex-col items-left">
-                                                <h1 className="w-60 text-lg font-semibold text-white text-wrap">{post.title}</h1>
-                                                <p className="text-sm font-gray text-lightgray">{post.postedBy} • {post.date.toDate().toLocaleDateString('en-US')}</p>
-                                            </div>
-                                            {post.description && (
-                                                <p className="text-md text-lightgray">{post.description}</p>
-                                            )}
-                                        </CardContent>
-                                        <CardFooter className="w-full pb-5 pt-3">
-                                            <div className="flex ml-auto items-center justify-center text-right gap-2">
-                                                <FaClockRotateLeft className="text-lightgray text-sm" />
-                                                <p className="text-sm text-lightgray">{post.hoursAgo} hours ago</p>
-                                            </div>
-                                        </CardFooter>
-                                    </Card>
+                                    <Post key={post.id} {...post} />
                                 )
                             })}
                         </div>

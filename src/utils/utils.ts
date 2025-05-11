@@ -30,5 +30,12 @@ export const formatPost = ({ userInput, image, postLocation }: RawPostFormat): B
     };
 };
 
+// Calculate the difference in hours between the current time and the post date
+export const getHoursAgo = (date: Timestamp): number => {
+    const currentTime = Timestamp.now();
+    const difference = currentTime.seconds - date.seconds;
+    return Math.floor(difference / 3600);
+}
+
 // Get color equivalent of category
 export const getCategoryColor = (category: CategoryKey): string => PostCategoryColors[category]
