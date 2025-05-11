@@ -10,6 +10,7 @@ import { auth } from '@/firebase/firebase';
 import { useState } from 'react';
 import InputField from '@/components/InputField';
 import { useAuthCheck } from "@/hooks/useAuthCheck";
+import { addUserCollection } from "@/firebase/addUserCollection";
 
 const OAuthLoginIcons =  () => {
     const { loading, setCurrentUser, setIsLoggedIn, setLoading } = useAuth();
@@ -28,8 +29,10 @@ const OAuthLoginIcons =  () => {
             if(user) {
                 setCurrentUser(user);
                 setIsLoggedIn(true);
+                // Store user data in local storage
                 localStorage.setItem('authUser', JSON.stringify(user));
-                // TODO: Add user data to users collection in Firestore
+                // Add user data to users collection in Firestore
+                await addUserCollection(user);
             }
         } catch (error) {
             console.error("OAuthLoginError:", error);

@@ -4,7 +4,6 @@ import { Header } from '@/components/Header';
 import { VolcanoMap, AddPostForm, Post } from '@/components/Bulletin/components';
 import { useAuthCheck, useBulletinPosts } from '@/hooks/hooks';
 import { Loading } from '@/components/Loading';
-import { bulletinSampleData } from '@/utils/sampleData';
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -30,32 +29,32 @@ export default function Bulletin() {
 
     return (
         <>
-            <main className="flex w-screen h-screen">
-                <div className="flex flex-1 flex-col gap-6 h-screen p-3">
-                    <Header currentPage={"Bulletin"} />
-                    <div className="flex flex-col gap-3">
-                        <h1 className="text-2xl font-semibold pl-2">Volcano Map</h1>
+            <Header currentPage={"Bulletin"} />
+            <main className="flex w-screen h-screen lg:p-10">
+                <div className="w-full flex flex-col gap-6 h-screen p-3">
+                    <div className="relative flex flex-col gap-3 w-full mx-auto items-center">
                         <VolcanoMap posts={filteredPosts}/>
+                        <h1 className="absolute left-4 top-3 text-2xl lg:text-4xl text-charcoal p-2 w-90 font-semibold pl-2">Volcano Map</h1>
                     </div>
-                    <div className="flex flex-col gap-7 p-5">
-                        <h1 className="text-3xl font-regular text-center">Community Bulletin</h1>
+                    <div className="flex flex-col gap-7 p-5 w-full">
+                        <h1 className="text-3xl lg:text-5xl font-regular text-center">Community Bulletin</h1>
                         <div className="flex justify-between items-center ">
-                            <div className="flex gap-4 text-lg text-lightgray">
+                            <div className="flex gap-4 lg:gap-6 text-lg text-lightgray">
                                 <button 
-                                    className={`p-2 border-b-2 border-b-lightgray ${filterBy === 'recent' ? 'border-b-lightgray' : 'border-b-transparent'}`}
+                                    className={`text-2xl lg:text-3xl p-2 border-b-2 hover:cursor-pointer border-b-lightgray ${filterBy === 'recent' ? 'border-b-lightgray' : 'border-b-transparent'}`}
                                     onClick={() => setFilterBy('recent')}
                                 >
                                     Recent
                                 </button>
                                 <button 
-                                    className={`p-2 border-b-2 border-b-lightgray ${filterBy === 'owned' ? 'border-b-lightgray' : 'border-b-transparent'}`}
+                                    className={`text-2xl lg:text-3xl p-2 border-b-2 hover:cursor-pointer border-b-lightgray ${filterBy === 'owned' ? 'border-b-lightgray' : 'border-b-transparent'}`}
                                     onClick={() => setFilterBy('owned')}
                                 >
                                     My Posts
                                 </button>
                             </div>
                             <button 
-                                className="flex items-center justify-center bg-red-500 p-2 rounded-lg"
+                                className="text-2xl lg:text-3xl flex items-center justify-center bg-lava px-4 py-2 rounded-lg hover:bg-red-600 hover:cursor-pointer"
                                 onClick={ onFormOpen }
                             >
                                 <HiOutlinePlusSm className="text-white text-md cursor-pointer" />
@@ -63,7 +62,7 @@ export default function Bulletin() {
                             </button>
                             { showForm && <AddPostForm onClose={ onFormClose } />}
                         </div>
-                        <div className="flex flex-col gap-7">
+                        <div className="flex flex-col gap-7 flex-wrap lg:flex-row">
                             {filteredPosts.map(post => {
                                 return (
                                     <Post key={post.id} {...post} />

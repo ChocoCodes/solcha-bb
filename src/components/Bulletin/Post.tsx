@@ -14,7 +14,7 @@ import {
 export const Post = (post: BulletinPost) => {
     return (
         <Card 
-            className="border-none p-0 w-full max-w-md bg-[#202020] shadow-md flex flex-col gap-2 items-center rounded-lg"
+            className="border-none p-0 w-full max-w-sm bg-[#202020] shadow-md flex flex-col gap-2 items-center rounded-lg"
         >
             <CardHeader className="relative w-full p-0 m-0">
                 <Image 

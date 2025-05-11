@@ -10,6 +10,7 @@ import {
     updateProfile
 } from 'firebase/auth';
 import { SignInCredentials } from '@/utils/types';
+import { addUserCollection } from './addUserCollection';
 
 export const handleCreateUserByEmail = async ({ email, password }: SignInCredentials): Promise<UserCredential> => {
     try {
@@ -20,6 +21,10 @@ export const handleCreateUserByEmail = async ({ email, password }: SignInCredent
 
         if (auth.currentUser) {
             await updateProfile(auth.currentUser, { displayName: name });
+            // Store user data in local storage
+            localStorage.setItem('authUser', JSON.stringify(userCredential.user));
+            // Add user data to users collection in Firestore
+            await addUserCollection(userCredential.user);
         }
 
         return userCredential;

@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { KANLAON_COORDS, PDZ_RADIUS } from '@/utils/constants';
 import { VolcanoMarkerProps, CategoryKey } from '@/utils/types';
-import { getCategoryColor } from '@/utils/utils';
+import { getCategoryColor, extractHexColor } from '@/utils/utils';
 import {
     APIProvider,
     Map,
@@ -36,14 +36,13 @@ const PDZCircle = () => {
 }
 
     export const VolcanoMap = ({ posts }: VolcanoMarkerProps) => {
-
         return (
             <APIProvider apiKey={ process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string }>
-                <div className="w-90 h-80 shadow-md mx-auto touch-none overflow-hidden">
+                <div className="flex items-center w-90 h-80 shadow-md touch-none overflow-hidden lg:w-full lg:h-150 rounded-4xl">
                     {/*use defaultCenter and defaultZoom as props instead of center and zoom - perform events through the map*/}
                     <Map 
                         defaultCenter={ KANLAON_COORDS } 
-                        defaultZoom={ 11 }
+                        defaultZoom={ 13 }
                         style={{ width: '100%', height: '100%' }} 
                         mapId={ process.env.NEXT_PUBLIC_MAP_ID as string }
                         disableDefaultUI={true}
@@ -57,6 +56,7 @@ const PDZCircle = () => {
                         {posts.map((post, index) => {
                             if(!post.position) return null; // Skip if position is not available
                             const color = getCategoryColor(post.category as CategoryKey);
+                            const pinColor = extractHexColor(color);
                             return (
                                 <AdvancedMarker 
                                     key={index}
@@ -65,8 +65,7 @@ const PDZCircle = () => {
                                         lng: post.position.longitude
                                     }}
                                 >
-                                    {/* TODO: Fix by using hex code directly and change glyph color also */}
-                                    <Pin background={color}/>
+                                    <Pin background={pinColor} glyphColor={pinColor}/>
                                 </AdvancedMarker>
                             )
                         })}

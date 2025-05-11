@@ -39,3 +39,8 @@ export const getHoursAgo = (date: Timestamp): number => {
 
 // Get color equivalent of category
 export const getCategoryColor = (category: CategoryKey): string => PostCategoryColors[category]
+
+export const extractHexColor = (color: string): string => {
+    const hex = color.match(/\[#([0-9a-fA-F]{6})\]/);
+    return hex ? `#${hex[1]}` : '#000000';
+}
