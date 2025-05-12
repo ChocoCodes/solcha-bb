@@ -4,9 +4,11 @@ import { Header } from '@/components/Header';
 import { PDZCircle } from '@/components/Bulletin/VolcanoMap';
 import { KANLAON_COORDS } from '@/utils/constants';
 import { simulationLocInPDZ } from '@/utils/sampleData';
-import { useAuthCheck } from '@/hooks/useAuthCheck';
+import { useAuthCheck, useNearbySearch } from '@/hooks/hooks';
 import { Loading } from '@/components/Loading';
 import { MapMarker } from '@/components/Map/MapMarker';
+import { useMemo } from 'react';
+import { haversine } from '@/utils/haversine';
 import {
     APIProvider,
     Map as GoogleMap,
@@ -17,8 +19,21 @@ import {
 
 export default function Map() {
     const { loading } = useAuthCheck();
-    // Display loading screen while checking auth
-    if(loading) {
+    // Memoize the user location and search criteria to avoid unnecessary re-renders
+    const userLoc = useMemo(() => simulationLocInPDZ, []);
+    const searchProps = useMemo(() => ({
+        center: userLoc,
+        radiusM: 50000, // 50km radius
+        types: ['school'],
+        maxResults: 20
+    }), [userLoc]);
+
+    const { places, loading: isLoadingPlaces } = useNearbySearch(searchProps);
+    // Filter out places that are outside the 6km PDZ
+    const evacuationCenters = places.filter(place => haversine(userLoc, place.location) >= 6);
+    console.log('Filtered Places: ', evacuationCenters);
+    // Display loading screen while checking auth isLoadingPlaces
+    if(loading || isLoadingPlaces) {
         return <Loading />;
     }
     
@@ -49,10 +64,22 @@ export default function Map() {
                             <MapMarker 
                                 position={ simulationLocInPDZ }
                                 icon="🏠"
-                                place="Cabagnaan Barangay Hall"
-                                description="Sample Location"
+                                place="Me"
+                                description="Cabagnaan Barangay Hall"
                                 pin={ <Pin background="blue" glyphColor="blue" borderColor="blue"/> }
                             />
+                            {evacuationCenters.map((place, index) => {
+                                return (
+                                    <MapMarker 
+                                        key={index}
+                                        position={place.location}
+                                        icon="🏫"
+                                        place={place.displayName}
+                                        description={"This school may serve as a safe shelter during a volcanic eruption."}
+                                        pin={ <Pin background="green" glyphColor="green" borderColor="green"/> }
+                                    />
+                                )
+                            })}
                         </GoogleMap>
                     </APIProvider>
                 </div>

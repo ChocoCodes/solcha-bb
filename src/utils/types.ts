@@ -90,3 +90,20 @@ export type MapMarkerProps = {
     description?: string;
     pin?: React.ReactNode; // Optional pin element
 }
+
+export interface PlaceResult {
+    displayName: string;
+    location: {
+        lat: number;
+        lng: number;
+    }
+    primaryType?: string;
+};
+
+export type NearbySearchProps = {
+    center: google.maps.LatLngLiteral;
+    radiusM: number;
+    types?: string[];
+    keyword?: string;
+    maxResults?: number;
+}

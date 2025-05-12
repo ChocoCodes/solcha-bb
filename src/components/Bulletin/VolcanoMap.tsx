@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { KANLAON_COORDS, PDZ_RADIUS } from '@/utils/constants';
 import { VolcanoMarkerProps, CategoryKey } from '@/utils/types';
 import { getCategoryColor, extractHexColor } from '@/utils/utils';
@@ -37,7 +37,6 @@ export const PDZCircle = () => {
 }
 
     export const VolcanoMap = ({ posts }: VolcanoMarkerProps) => {
-        const [open, setOpen] = useState<boolean>(false);
 
         return (
             <APIProvider apiKey={ process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string }>
