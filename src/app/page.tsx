@@ -35,7 +35,7 @@ export default function Bulletin() {
                     <div className="relative w-full flex flex-col gap-3 mx-auto items-center pt-2 lg:pt-0">
                         <VolcanoMap posts={filteredPosts}/>
                         <div className="flex flex-col absolute left-4 top-3">
-                            <h1 className="text-2xl lg:text-4xl text-charcoal p-2 font-semibold pl-1 w-80">Volcano Map</h1>
+                            <h1 className="text-2xl lg:text-4xl text-white p-2 font-semibold pl-1 w-80">Volcano Map</h1>
                         </div>
                     </div>
                     <div className="flex flex-row gap-2 w-full flex-wrap px-3 pl-1">

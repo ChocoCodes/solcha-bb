@@ -82,3 +82,11 @@ export type RawPostFormat = {
     image: ImageData;
     postLocation: google.maps.LatLngLiteral;
 }
+
+export type MapMarkerProps = {
+    position: google.maps.LatLngLiteral;
+    icon?: string;
+    place: string;
+    description?: string;
+    pin?: React.ReactNode; // Optional pin element
+}

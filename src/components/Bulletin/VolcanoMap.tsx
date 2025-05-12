@@ -7,11 +7,11 @@ import { getCategoryColor, extractHexColor } from '@/utils/utils';
 import {
     APIProvider,
     Map,
-    AdvancedMarker,
     useMap,
     Pin,
-    InfoWindow
+    ColorScheme
 } from '@vis.gl/react-google-maps';
+import { MapMarker } from '../Map/MapMarker';
 
 
 // Circle component overlay on top of the map
@@ -50,35 +50,30 @@ export const PDZCircle = () => {
                         mapId={ process.env.NEXT_PUBLIC_MAP_ID as string }
                         disableDefaultUI={true}
                         gestureHandling={"greedy"}
+                        colorScheme={ColorScheme.DARK}
                     >
-                        <AdvancedMarker position={KANLAON_COORDS} onClick={() => setOpen(true)}>
-                            <span className="text-4xl">🌋</span>
-                        </AdvancedMarker>
+                        <MapMarker
+                            position={ KANLAON_COORDS }
+                            icon="🌋"
+                            place="Kanlaon Volcano"
+                            description="Active stratovolcano located in the Philippines."
+                        />
                         <PDZCircle />
-                        {open && (
-                            <InfoWindow position={ KANLAON_COORDS } onCloseClick={() => setOpen(false)}>
-                                <div className="flex flex-col w-25 h-20 gap-2 p-3">
-                                    <h1 className="text-sm font-semibold text-charcoal">Kanlaon Volcano</h1>
-                                    <p className="text-xs text-charcoal">Active stratovolcano located in the Philippines.</p>
-                                    <p className="text-xs text-charcoal">Coordinates: {KANLAON_COORDS.lat}, {KANLAON_COORDS.lng}</p>
-                                </div>
-                            </InfoWindow>
-                        )}
                         {/* Render marker of post location dynamically */}
                         {posts.map((post, index) => {
                             if(!post.position) return null; // Skip if position is not available
                             const color = getCategoryColor(post.category as CategoryKey);
                             const pinColor = extractHexColor(color);
                             return (
-                                <AdvancedMarker 
-                                    key={index}
-                                    position={{
+                                <MapMarker 
+                                    key={ index }
+                                    position={{ 
                                         lat: post.position.latitude,
                                         lng: post.position.longitude
                                     }}
-                                >
-                                    <Pin background={pinColor} glyphColor={pinColor} borderColor={pinColor}/>
-                                </AdvancedMarker>
+                                    place={ post.title }
+                                    pin={ <Pin background={pinColor} glyphColor={pinColor} borderColor={pinColor}/>  }
+                                />
                             )
                         })}
                     </Map>

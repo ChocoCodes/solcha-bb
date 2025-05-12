@@ -24,7 +24,7 @@ export const Header = ({ currentPage }: HeaderProps) => {
 
 
     return (
-        <header className="text-center p-4 lg:px-10 lg:py-2 border-b-2 border-gray-500">
+        <header className={`${currentPage === "Map" ? 'sticky': ''} text-center p-4 lg:px-10 lg:py-2 border-b-2 border-gray-500`}>
            <div className="flex justify-between items-center">
             {/* Sheet container for sidebar */}
             <div className="block md:hidden ">
