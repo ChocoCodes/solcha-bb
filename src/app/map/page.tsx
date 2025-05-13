@@ -30,7 +30,7 @@ export default function Map() {
 
     const { places, loading: isLoadingPlaces } = useNearbySearch(searchProps);
     // Filter out places that are outside the 6km PDZ
-    const evacuationCenters = places.filter(place => haversine(userLoc, place.location) >= 6);
+    const evacuationCenters = places.filter(place => haversine(userLoc, place.location) >= 6.0);
     console.log('Filtered Places: ', evacuationCenters);
     // Display loading screen while checking auth isLoadingPlaces
     if(loading || isLoadingPlaces) {

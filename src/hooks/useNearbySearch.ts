@@ -39,7 +39,6 @@ export const useNearbySearch = ({
                 region: 'PH',
             };
             console.log('NearbySearchRequest:', request);
-            // @ts-ignore
             const { places } = await Place.searchNearby(request);
             const parsedPlaces: PlaceResult[] = places.map(
                 (place: google.maps.places.Place) => {
