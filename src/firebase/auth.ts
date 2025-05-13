@@ -64,8 +64,16 @@ export const handleGoogleSignIn = async (): Promise<UserCredential> => {
     try {
         const result = await signInWithPopup(auth, provider);
         return result as UserCredential;
-    } catch (error: any) {
-        alert(error.message);
+    } catch (error: unknown) {
+        if (error instanceof FirebaseError) {
+            if (error.code === 'auth/popup-closed-by-user') {
+                alert("Popup closed by user. Please try again.");
+            } else if (error.code === 'auth/popup-blocked') {
+                alert("Popup blocked. Please allow popups for this site.");
+            } else {
+                alert(error.message);
+            }
+        }
         console.error("Error signing in with Google:", error);
         throw error;
     }

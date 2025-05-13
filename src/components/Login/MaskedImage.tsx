@@ -1,15 +1,15 @@
 import Image from 'next/image';
 const MaskedImage = () => {
     return (    
-        <div className="relative w-full h-60">
+        <div className="relative w-full h-60 lg:h-80">
             <Image
             src="/assets/Kanlaon.png"
             alt="Image of Mount Kanlaon"
-            className="object-fit mask sm opacity-70 backdrop-blur-lg"
+            className="object-fit mask sm lg:lg opacity-70 backdrop-blur-lg"
             fill
             priority
             />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 items-center justify-center w-screen">
+            <div className="absolute lg:scale-125 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 items-center justify-center w-screen">
                 <Image 
                     src='/assets/BB-logo.svg'
                     alt='logo'
