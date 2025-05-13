@@ -1,4 +1,4 @@
-import { Providers, SidebarLabels, CategoryKey } from "./types";
+import { IdentityProvider, SidebarLabels, CategoryKey } from "./types";
 import { UserInputData, ImageData } from './types';
 // Kanlaon Coords
 export const KANLAON_COORDS = {
@@ -10,16 +10,10 @@ export const PDZ_RADIUS = 6; // in km
 
 export const passwordPattern = '(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)';
 
-export const OAuthProviders: Providers[] = [
-    {
-        name: 'GOOGLE',
-        img_link: '/assets/Google-logo.png',
-    },
-    {
-        name: 'FACEBOOK',
-        img_link: '/assets/Facebook-logo.png',
-    }
-];
+export const GoogleProvider: IdentityProvider = {
+    name: 'GOOGLE',
+    img_link: '/assets/Google-logo.png',
+};
 
 // Sidebar labels
 export const SidebarLabelText = {

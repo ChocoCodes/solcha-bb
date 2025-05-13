@@ -11,6 +11,7 @@ import {
 } from 'firebase/auth';
 import { SignInCredentials } from '@/utils/types';
 import { addUserCollection } from './addUserCollection';
+import { FirebaseError } from '@firebase/util';
 
 export const handleCreateUserByEmail = async ({ email, password }: SignInCredentials): Promise<UserCredential> => {
     try {
@@ -26,7 +27,6 @@ export const handleCreateUserByEmail = async ({ email, password }: SignInCredent
             // Add user data to users collection in Firestore
             await addUserCollection(userCredential.user);
         }
-
         return userCredential;
     } catch (error: unknown) {
         const err = error as Error;
@@ -36,35 +36,40 @@ export const handleCreateUserByEmail = async ({ email, password }: SignInCredent
     }
 };
 
-export const handleEmailSignIn = async ({email, password}: SignInCredentials): Promise<UserCredential> => {
+export const handleEmailSignIn = async ({ email, password }: SignInCredentials): Promise<UserCredential> => {
+    console.log(`handleEmailSignIn Email: ${email}, Password: ${password}`); // DB
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log("User signed in: ", userCredential.user);
         return userCredential;
     } catch (error: unknown) {
-        const err = error as { code: string, message: string };
-        if (err.code === 'auth/user-not-found') {
-            const shouldSignUp = confirm("User not found. Would you like to sign up?");
-            if(shouldSignUp) {
-                return await handleCreateUserByEmail({email, password});
+        if (error instanceof FirebaseError) {
+            if (error.code === 'auth/user-not-found') {
+                const shouldSignUp = confirm("User not found. Would you like to sign up?");
+                if (shouldSignUp) {
+                    return await handleCreateUserByEmail({ email, password });
+                }
             }
+            alert(error.message);
+            console.error("EmailSignInError: ", error);
+        } else {
+            console.error("Unknown error during sign-in: ", error);
         }
-        alert(err.message);
-        console.error("EmailSignInError: ", err);
         throw error;
     }
-}
+};
 
 export const handleGoogleSignIn = async (): Promise<UserCredential> => {
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider)
-        .then(result => result)
-        .catch(error => {
-            alert(error.message);
-            console.error("Error signing in with Google: ", error);
-            throw error;
-        });
-   
-}
+    try {
+        const result = await signInWithPopup(auth, provider);
+        return result as UserCredential;
+    } catch (error: any) {
+        alert(error.message);
+        console.error("Error signing in with Google:", error);
+        throw error;
+    }
+};
 
 export const handleFacebookSignIn = async (): Promise<UserCredential> => {
     const provider = new FacebookAuthProvider();

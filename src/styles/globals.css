@@ -85,13 +85,13 @@ body {
 }
 
 .sm {
-  mask-image: url('/assets/mask-sm.svg');
-  -webkit-mask-image: url('/assets/mask-sm.svg');
+  mask-image: url('/assets/Mask-sm.svg');
+  -webkit-mask-image: url('/assets/Mask-sm.svg');
 }
 
 .lg {
-  mask-image: url('/assets/mask-lg.svg');
-  -webkit-mask-image: url('/assets/mask-lg.svg');
+  mask-image: url('/assets/Mask-lg.svg');
+  -webkit-mask-image: url('/assets/Mask-lg.svg');
 }
 
 .spinner {

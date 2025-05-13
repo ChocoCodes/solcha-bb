@@ -63,7 +63,6 @@ export default function Map() {
                             {/* Simulation Marker inside the 6km PDZ*/}
                             <MapMarker 
                                 position={ simulationLocInPDZ }
-                                icon="🏠"
                                 place="Me"
                                 description="Cabagnaan Barangay Hall"
                                 pin={ <Pin background="blue" glyphColor="blue" borderColor="blue"/> }
@@ -75,8 +74,7 @@ export default function Map() {
                                         position={place.location}
                                         icon="🏫"
                                         place={place.displayName}
-                                        description={"This school may serve as a safe shelter during a volcanic eruption."}
-                                        pin={ <Pin background="green" glyphColor="green" borderColor="green"/> }
+                                        description={"This school may serve as an evacuation center during a volcanic eruption."}
                                         distance={haversine(userLoc, place.location)}
                                     />
                                 )

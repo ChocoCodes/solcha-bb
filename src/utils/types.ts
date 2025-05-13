@@ -32,7 +32,7 @@ export type SignInCredentials = {
     password: string;
 }
 
-export type Providers = {
+export type IdentityProvider = {
     name: string;
     img_link: string;
 }

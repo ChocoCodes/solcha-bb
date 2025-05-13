@@ -1,39 +1,42 @@
 "use client";
 
-import { OAuthProviders } from "@/utils/constants";
+import { GoogleProvider } from "@/utils/constants";
 import { useAuth } from "@/context/AuthContext";
 import { Loading } from '@/components/Loading';
-import { Providers } from '@/utils/types';
 import * as Auth from "@/firebase/auth";
+import { getAdditionalUserInfo  } from 'firebase/auth';
 import Image from 'next/image';
-import { auth } from '@/firebase/firebase';
 import { useState } from 'react';
 import InputField from '@/components/InputField';
 import { useAuthCheck } from "@/hooks/useAuthCheck";
 import { addUserCollection } from "@/firebase/addUserCollection";
+import { useRouter } from 'next/navigation';
 
 const OAuthLoginIcons =  () => {
     const { loading, setCurrentUser, setIsLoggedIn, setLoading } = useAuth();
+    const { push } = useRouter();
 
     if(loading) return <Loading />;
 
-    const handleOAuthLogin = async (provider: Providers) => {
+    const handleOAuthLogin = async () => {
         setLoading(true);
         try {
-            if (provider.name === 'GOOGLE') {
-                await Auth.handleGoogleSignIn();
-            } else {
-                await Auth.handleFacebookSignIn();
-            }
-            const user = auth.currentUser;
+            const result = await Auth.handleGoogleSignIn();
+            const user = result.user;
+            // Get additional user info from the resutl
+            const additionalInfo = getAdditionalUserInfo(result);
+            const isNewUser = additionalInfo?.isNewUser;
             if(user) {
                 setCurrentUser(user);
                 setIsLoggedIn(true);
                 // Store user data in local storage
                 localStorage.setItem('authUser', JSON.stringify(user));
-                // Add user data to users collection in Firestore
-                await addUserCollection(user);
+                // Check if the user is newly created and add user data to users collection in Firestore
+                if (isNewUser) {
+                    await addUserCollection(user);
+                }
             }
+            push('/');
         } catch (error) {
             console.error("OAuthLoginError:", error);
         } finally {
@@ -42,20 +45,17 @@ const OAuthLoginIcons =  () => {
     }
 
     return (
-        <div className="flex gap-2 justify-center items-center">
-            {OAuthProviders.map(provider => {
-                return (
-                    <button 
-                        key={ provider.name } 
-                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                            e.preventDefault();
-                            handleOAuthLogin(provider);
-                        }}
-                    >
-                        <Image src={ provider.img_link } alt={ provider.name } className="" width={20} height={20} priority/>
-                    </button>
-                )
-            })}
+        <div className="flex gap-2 justify-center items-center p-4 rounded-md bg-clear border-2 border-white/60 hover:cursor-pointer">
+            <button 
+                key={ GoogleProvider.name } 
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    e.preventDefault();
+                    handleOAuthLogin();
+                }}
+                className="hover:cursor-pointer"
+            >
+                <Image src={ GoogleProvider.img_link } alt={ GoogleProvider.name } className="fill-white/60" width={30} height={30} priority/>
+            </button>
         </div>
     )
 }
@@ -65,7 +65,7 @@ const SignInForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { setCurrentUser } = useAuth();
-
+    const { push } = useRouter();
 
     if(loading) return <Loading />;
 
@@ -73,7 +73,10 @@ const SignInForm = () => {
         console.log(`Email: ${email}, Password: ${password}`); // DB
         e.preventDefault();
         Auth.handleEmailSignIn({email, password})
-            .then(_user => setCurrentUser(_user?.user))
+            .then(_user => {
+                setCurrentUser(_user?.user);
+                push('/');
+            })
             .catch(error => {
                 console.error("Error logging in via email/pass");
                 alert(error.message);
@@ -121,8 +124,8 @@ const SignInForm = () => {
                         Enter
                     </button>
                 </div>
-                <button onClick={ handleForgotPassword } className="border-none text-white-clear text-[12px] cursor-pointer hover:underline text-sm pt-1">Forgot Password?</button>
-                <p className="text-center text-xs">Or sign in with:</p>
+                <button onClick={ handleForgotPassword } className="border-none text-white-clear text-[12px] cursor-pointer hover:underline text-sm pt-1 lg:text-lg">Forgot Password?</button>
+                <p className="text-center text-xs lg:text-lg">Or sign in with:</p>
                 <OAuthLoginIcons />
             </form>
         </div>
