@@ -12,7 +12,7 @@ import { haversine } from '@/utils/haversine';
 import {
     APIProvider,
     Map as GoogleMap,
-    Pin,
+    Pin,    
     ColorScheme
 } from '@vis.gl/react-google-maps';
 
@@ -23,18 +23,18 @@ export default function Map() {
     const userLoc = useMemo(() => simulationLocInPDZ, []);
     const searchProps = useMemo(() => ({
         center: userLoc,
-        radiusM: 50000, // 50km radius
+        radiusM: 15000, // 15km radius
         types: ['school'],
         maxResults: 20
     }), [userLoc]);
 
     const { places, loading: isLoadingPlaces } = useNearbySearch(searchProps);
     // Filter out places that are outside the 6km PDZ
-    const evacuationCenters = places.filter(place => haversine(userLoc, place.location) >= 6.0);
-    console.log('Filtered Places: ', evacuationCenters);
+    const evacuationCenters = places.filter(place => haversine(KANLAON_COORDS, place.location) >= 6.0);
+    // console.log('Filtered Places: ', evacuationCenters);
     // Display loading screen while checking auth isLoadingPlaces
     if(loading || isLoadingPlaces) {
-        return <Loading />;
+        return <Loading /> ;
     }
     
     return (
@@ -77,6 +77,7 @@ export default function Map() {
                                         place={place.displayName}
                                         description={"This school may serve as a safe shelter during a volcanic eruption."}
                                         pin={ <Pin background="green" glyphColor="green" borderColor="green"/> }
+                                        distance={haversine(userLoc, place.location)}
                                     />
                                 )
                             })}

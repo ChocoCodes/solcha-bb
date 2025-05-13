@@ -44,3 +44,5 @@ export const extractHexColor = (color: string): string => {
     const hex = color.match(/\[#([0-9a-fA-F]{6})\]/);
     return hex ? `#${hex[1]}` : '#000000';
 }
+
+export const formatDistance = (distance: number): string => distance.toFixed(2);

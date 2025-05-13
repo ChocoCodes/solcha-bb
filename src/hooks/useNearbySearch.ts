@@ -38,8 +38,8 @@ export const useNearbySearch = ({
                 language: 'en-US',
                 region: 'PH',
             };
-            console.log('NearbySearchRequest:', request);
-            const { places } = await Place.searchNearby(request);
+            // console.log('NearbySearchRequest:', request);
+                const { places } = await Place.searchNearby(request);
             const parsedPlaces: PlaceResult[] = places.map(
                 (place: google.maps.places.Place) => {
                     return {
@@ -54,7 +54,7 @@ export const useNearbySearch = ({
             );
             setPlaces(parsedPlaces);
             setLoading(false);
-            console.log('Places: ', places);
+            // console.log('Places: ', places);
         } catch (_error) {
             const err = _error as Error;
             setError(err.message);

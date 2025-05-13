@@ -87,8 +87,9 @@ export type MapMarkerProps = {
     position: google.maps.LatLngLiteral;
     icon?: string;
     place: string;
-    description?: string;
+    description?: string;   
     pin?: React.ReactNode; // Optional pin element
+    distance?: number; // Optional distance of the pin from the user location
 }
 
 export interface PlaceResult {

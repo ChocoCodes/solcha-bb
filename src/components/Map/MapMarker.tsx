@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
 import { MapMarkerProps } from '@/utils/types';
+import { formatDistance } from '@/utils/utils';
 
-export const MapMarker = ({position, icon, place, description, pin}: MapMarkerProps) => {
+export const MapMarker = ({position, icon, place, description, pin, distance}: MapMarkerProps) => {
     const [open, setOpen] = useState<boolean>(false);
     return (
         <>
@@ -19,7 +20,11 @@ export const MapMarker = ({position, icon, place, description, pin}: MapMarkerPr
                         {description && 
                             <p className="text-xs text-charcoal">{description}</p>
                         }
-                        <p className="text-xs text-charcoal">Coordinates: {position.lat}, {position.lng}</p>
+                        <p className="text-xs text-charcoal">
+                            { distance ? 
+                                `Distance: ${formatDistance(distance)} kilometers away from me`: 
+                                `Coordinates: ${position.lat}, ${position.lng}`}
+                        </p>
                     </div>
                 </InfoWindow>
             )}

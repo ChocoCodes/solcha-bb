@@ -67,7 +67,7 @@ export const Header = ({ currentPage }: HeaderProps) => {
                 <SidebarItem
                     label={ "Sign Out" }
                     func={ handleSignOut }
-                    className="hidden md:flex text-3xl font-semibold px-3 py-2 rounded-md bg-lava hover:cursor-pointer hover:bg-red-600 transition no-underline"
+                    className="hidden md:flex text-3xl font-semibold px-0 py-2 rounded-md bg-lava hover:cursor-pointer hover:bg-red-600 transition no-underline"
                 />  
            </div>
         </header>
