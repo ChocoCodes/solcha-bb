@@ -3,7 +3,7 @@ import { SidebarLabelText } from './constants';
 import { PostCategory } from './constants';
 import { DocumentData, DocumentReference, GeoPoint, Timestamp } from 'firebase/firestore';
 
-export type InputFieldProps = {
+export interface InputFieldProps {
     type: string;
     name: string;
     id: string;
@@ -83,7 +83,7 @@ export type RawPostFormat = {
     postLocation: google.maps.LatLngLiteral;
 }
 
-export type MapMarkerProps = {
+export interface MapMarkerProps {
     position: google.maps.LatLngLiteral;
     icon?: string;
     place: string;
@@ -101,10 +101,15 @@ export interface PlaceResult {
     primaryType?: string;
 };
 
-export type NearbySearchProps = {
+export interface NearbySearchProps {
     center: google.maps.LatLngLiteral;
     radiusM: number;
     types?: string[];
     keyword?: string;
     maxResults?: number;
+}
+
+export type Message = {
+    sender: "user" | "bot";
+    content: string;
 }

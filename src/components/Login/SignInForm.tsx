@@ -119,7 +119,7 @@ const SignInForm = () => {
                     <button 
                         type="submit" 
                         onClick={ handleEmailSignIn } 
-                        className="w-full h-10 px-3 mt-4 mr-auto text-center bg-ivory rounded-md text-charcoal"
+                        className="w-full h-10 px-3 mt-4 mr-auto text-center bg-ivory rounded-md text-charcoal hover:bg-ivory/90 cursor-pointer lg:text-xl"
                     >
                         Enter
                     </button>

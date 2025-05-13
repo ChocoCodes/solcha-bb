@@ -1,4 +1,4 @@
-import { BulletinPost } from './types';
+import { BulletinPost, Message } from './types';
 import { PostCategory } from './constants';
 import { GeoPoint, Timestamp } from 'firebase/firestore';
 
@@ -28,6 +28,37 @@ export const bulletinSampleData: BulletinPost[] = [
         position: new GeoPoint(10.386304052026134, 123.21657344906396),
     }
 ]
+
+export const dummyMessages: Message[] = [
+  {
+    sender: "user",
+    content: "Hey there! I need help with my project.",
+  },
+  {
+    sender: "bot",
+    content:
+      "Of course! I'd be happy to help. If you can tell me a bit more about your project goals and the kind of tasks you want to automate, I can suggest specific AI tools or approaches. Whether it's using natural language processing, image recognition, or simple rule-based automation, there are many ways AI can make your workflow easier.",
+  },
+  {
+    sender: "user",
+    content: "That sounds great! I’m working on a task manager for teams.",
+  },
+  {
+    sender: "user",
+    content: "Hey there! I need help with my project.",
+  },
+  {
+    sender: "bot",
+    content:
+      "Of course! I'd be happy to help. If you can tell me a bit more about your project goals and the kind of tasks you want to automate, I can suggest specific AI tools or approaches. Whether it's using natural language processing, image recognition, or simple rule-based automation, there are many ways AI can make your workflow easier.",
+  },
+  {
+    sender: "user",
+    content: "That sounds great! I’m working on a task manager for teams.",
+  },
+];
+
+
 
 // Sample data when user is inside the 6KM PDZ
 // (CABAGNAAN Barangay Hall)
