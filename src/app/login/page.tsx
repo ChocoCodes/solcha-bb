@@ -1,5 +1,4 @@
-import SignInForm from '@/components/Login/SignInForm';
-import MaskedImage from '@/components/Login/MaskedImage';
+import { SignInForm, MaskedImage } from '@/components/Login/components'; 
 
 export default function SignIn() {
     return (

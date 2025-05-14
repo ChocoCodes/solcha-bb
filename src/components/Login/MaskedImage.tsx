@@ -29,4 +29,4 @@ const MaskedImage = () => {
     );
 }
 
-export default MaskedImage;
+export { MaskedImage };

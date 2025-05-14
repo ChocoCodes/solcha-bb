@@ -56,6 +56,45 @@ export const dummyMessages: Message[] = [
     sender: "user",
     content: "That sounds great! I’m working on a task manager for teams.",
   },
+  {
+    sender: "user",
+    content: "Hey there! I need help with my project.",
+  },
+  {
+    sender: "bot",
+    content:
+      "Of course! I'd be happy to help. If you can tell me a bit more about your project goals and the kind of tasks you want to automate, I can suggest specific AI tools or approaches. Whether it's using natural language processing, image recognition, or simple rule-based automation, there are many ways AI can make your workflow easier.",
+  },
+  {
+    sender: "user",
+    content: "That sounds great! I’m working on a task manager for teams.",
+  },
+  {
+    sender: "user",
+    content: "Hey there! I need help with my project.",
+  },
+  {
+    sender: "bot",
+    content:
+      "Of course! I'd be happy to help. If you can tell me a bit more about your project goals and the kind of tasks you want to automate, I can suggest specific AI tools or approaches. Whether it's using natural language processing, image recognition, or simple rule-based automation, there are many ways AI can make your workflow easier.",
+  },
+  {
+    sender: "user",
+    content: "That sounds great! I’m working on a task manager for teams.",
+  },
+  {
+    sender: "user",
+    content: "Hey there! I need help with my project.",
+  },
+  {
+    sender: "bot",
+    content:
+      "Of course! I'd be happy to help. If you can tell me a bit more about your project goals and the kind of tasks you want to automate, I can suggest specific AI tools or approaches. Whether it's using natural language processing, image recognition, or simple rule-based automation, there are many ways AI can make your workflow easier.",
+  },
+  {
+    sender: "user",
+    content: "That sounds great! I’m working on a task manager for teams.",
+  },
 ];
 
 

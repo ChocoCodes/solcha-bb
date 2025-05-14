@@ -132,4 +132,4 @@ const SignInForm = () => {
     );
 }
 
-export default SignInForm;
+export { SignInForm };

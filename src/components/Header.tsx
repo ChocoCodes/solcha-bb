@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { RxHamburgerMenu } from "react-icons/rx";
 import Image from 'next/image';
-import { SidebarLinks } from './Sidebar/SidebarLinks';
-import { SidebarItem } from './Sidebar/SidebarItem'
+import { SidebarLinks, SidebarItem } from '@/components/Sidebar/components';
 import { useAuth } from  '@/context/AuthContext';
 import { 
     Sheet,

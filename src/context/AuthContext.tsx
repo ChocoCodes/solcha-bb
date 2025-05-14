@@ -26,7 +26,7 @@ export function AuthProvider({ children }: ChildProps) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const router = useRouter();
+    const { push } = useRouter();
 
     const handleSignOut = async () => {
         await signOut(auth);
@@ -34,7 +34,7 @@ export function AuthProvider({ children }: ChildProps) {
         setCurrentUser(null);
         setIsLoggedIn(false);
         setLoading(false);
-        router.push('/login');
+        push('/login');
     }
     
     const initUser = async (user: User | null) => {

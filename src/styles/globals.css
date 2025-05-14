@@ -29,6 +29,7 @@
   --color-updates: #3590FF;
   --color-information: #7B1F82;
   --color-help-wanted: #388E3C;
+  --color-chat-bubble: #FF6E09;
   --font-poppins: 'Poppins', sans-serif;
   /* ShadCN Setup */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -103,6 +104,31 @@ html::-webkit-scrollbar-track {
   width: 75px;
   height: 75px;
   animation: spin 2s linear infinite;
+}
+
+/* ChatInput glow */
+.glow {
+  backdrop-filter: blur(2px);
+  box-shadow: 0px -8px 20px 8px rgba(255, 255, 255, 0.14);
+}
+/* Scrollbar styling */
+html,
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(211, 211, 211, 0.1) transparent;
+}
+
+.chat-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--color-lightgray);
+  border-radius: 8px;
+}
+
+.chat-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 @keyframes spin {

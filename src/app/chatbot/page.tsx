@@ -22,7 +22,7 @@ export default function Chatbot () {
         <>
             <Header currentPage="Chat" />
             <main className="flex flex-col w-screen h-screen p-0">
-                <div className="flex flex-col lg:w-7/10 lg:mx-auto flex-grow overflow-y-auto px-6 gap-3 py-10">
+                <div className="flex flex-col lg:w-7/10 lg:mx-auto flex-grow overflow-y-auto px-6 gap-3 pt-10 chat-scroll">
                     {messages.length === 0 ? (
                         <ChatWelcome />
                     ) :
@@ -32,8 +32,8 @@ export default function Chatbot () {
                             )
                         }
                     )}
+                    <div ref={bottomRef} className="h-0"></div>
                 </div>
-                <div ref={bottomRef} className="h-0"></div>
                 <ChatInput onSend={addMessage} />
             </main>
         </>
