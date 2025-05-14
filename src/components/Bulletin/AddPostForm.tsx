@@ -145,7 +145,7 @@ export const AddPostForm = ({ onClose }: { onClose: () => void }) => {
                     <button onClick={ onClose } className="text-3xl">&times;</button>
                 </CardHeader>
                 <CardContent className="pb-10">
-                    <form action="submit" onSubmit={handlePostSubmit} className="flex flex-col gap-5 text-white">
+                    <form action="submit" onSubmit={handlePostSubmit} className="flex flex-col gap-5 text-white lg:w-full lg:mx-auto">
                         {image.url && (
                             <Image 
                                 src={image.url} 
@@ -156,7 +156,7 @@ export const AddPostForm = ({ onClose }: { onClose: () => void }) => {
                             />
                         )}
                         <div className="p-1 font-poppins flex gap-3 justify-between items-center">
-                            <label className="px-2 py-1 bg-white text-charcoal rounded-sm text-md">
+                            <label className="p-2 bg-white text-charcoal rounded-sm text-md cursor-pointer hover:bg-white/80">
                                 Upload
                                 <input 
                                     type="file" 
@@ -183,7 +183,7 @@ export const AddPostForm = ({ onClose }: { onClose: () => void }) => {
                                 id={"description"} 
                                 value={userInput.description} 
                                 placeholder='Enter description'
-                                className="w-80 px-3 py-1 placeholder:text-white focus:outline-none"
+                                className="w-full px-3 py-1 placeholder:text-white focus:outline-none"
                                 onChange={e => handleInputChange(e)}
                             >
                             </textarea>

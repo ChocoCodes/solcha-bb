@@ -74,7 +74,9 @@ body {
   font-family: Poppins, Arial, Helvetica, sans-serif;
   overflow-x: hidden;
 }
-
+html::-webkit-scrollbar-track {
+  background-color: none; /* or any color you want */
+}
 .mask {
   mask-size: cover;
   -webkit-mask-size: cover;

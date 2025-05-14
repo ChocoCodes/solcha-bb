@@ -59,7 +59,7 @@ export const Header = ({ currentPage }: HeaderProps) => {
                         </SheetContent>
                     </Sheet>
             </div>
-                <h1 className="text-2xl font-bold text-left p-1">{ currentPage }</h1>
+                <h1 className="text-2xl font-bold text-left p-4">{ currentPage }</h1>
                 {/* container for nav-items - pc mode */}
                 <nav className="hidden md:flex gap-3 md:items-center text-center">
                     <SidebarLinks />
