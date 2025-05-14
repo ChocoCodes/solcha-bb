@@ -12,7 +12,6 @@ export const addUserCollection = async (user: User) => {
             email: user.email,
             displayName: user.displayName,
         })
-        console.log('User added successfully: ', user);
     } catch (error: unknown) {
         const err = error as Error;
         console.error('FirestoreUserUploadError: ', err.message);

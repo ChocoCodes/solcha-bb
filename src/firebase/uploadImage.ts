@@ -13,8 +13,6 @@ export const uploadImage = async (file: File | null): Promise<string> => {
     const filename = `${v4()}-${file.name}`;
     // Access user info from local storage
     const currentUser = getUserCache();
-    console.log('currentUser: ', currentUser);
-    console.log('type: ', typeof currentUser);
     if(!currentUser) {
         throw new Error('FileUploadError: User is not logged in.');
     }

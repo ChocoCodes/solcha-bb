@@ -3,15 +3,43 @@
 import { Header } from "@/components/Header";
 import { Message } from '@/utils/types';
 import { useEffect, useRef, useState } from "react";
-import { ChatInput, ChatWelcome, ChatBox } from '@/components/Chatbot/components'
-import { dummyMessages } from "@/utils/sampleData";
+import { ChatInput, ChatWelcome, ChatBox } from '@/components/Chatbot/components';
 
 export default function Chatbot () {
-    const [messages, setMessages] = useState<Message[]>(dummyMessages);
+    const [messages, setMessages] = useState<Message[]>([]);
+    const [botTyping, setBotTyping] = useState<boolean>(false);
+    // Scroll to the bottom reference after chat is loaded
     const bottomRef = useRef<HTMLDivElement>(null);
     
-    const addMessage = ({ sender="user", content }: Message) => {
-        setMessages(prev => [...prev, { sender, content }]);
+    const addMessage = async ({ sender, content }: Message) => {
+        setBotTyping(true);
+        setMessages(prev => [...prev, { sender, content }, { sender: "bot", content: "", isTyping: botTyping }]);
+
+        // Connect to the API Endpoint
+        try {
+            const res = await fetch('/api/query', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    query: content
+                }),
+            })
+            // Get the response from the API
+            const data = await res.json();
+            setMessages(prev => [
+                ...prev.slice(0, -1),
+                { sender: "bot", content: data.response, isTyping: false }
+            ]);
+        } catch (error: unknown) {
+            const err = error as Error;
+            console.error("APIConnectionError: ", err.message);
+            setMessages(prev => [
+                ...prev.slice(0, -1),
+                { sender: "bot", content: "Sorry, I couldn't connect to the API.", isTyping: false }
+            ]);
+        } finally {
+            setBotTyping(false);
+        }
     }
 
     useEffect(() => {

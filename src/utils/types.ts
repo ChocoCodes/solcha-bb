@@ -112,4 +112,5 @@ export interface NearbySearchProps {
 export type Message = {
     sender: "user" | "bot";
     content: string;
+    isTyping?: boolean;
 }

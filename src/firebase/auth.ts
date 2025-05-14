@@ -37,10 +37,8 @@ export const handleCreateUserByEmail = async ({ email, password }: SignInCredent
 };
 
 export const handleEmailSignIn = async ({ email, password }: SignInCredentials): Promise<UserCredential> => {
-    console.log(`handleEmailSignIn Email: ${email}, Password: ${password}`); // DB
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log("User signed in: ", userCredential.user);
         return userCredential;
     } catch (error: unknown) {
         if (error instanceof FirebaseError) {

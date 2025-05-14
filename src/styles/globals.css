@@ -106,6 +106,20 @@ html::-webkit-scrollbar-track {
   animation: spin 2s linear infinite;
 }
 
+
+/* Typing animation */
+.dot {
+  animation: blink 1s infinite;
+  font-size: 20px;
+  margin-right: 2px;
+}
+
+@keyframes blink {
+  0%, 20% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 /* ChatInput glow */
 .glow {
   backdrop-filter: blur(2px);

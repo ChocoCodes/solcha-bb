@@ -25,12 +25,10 @@ export const useBulletinPosts = () => {
                 orderBy('date', 'desc')
             );
             const querySnapshot = await getDocs(q);
-            console.log('QuerySnapshot: ', querySnapshot);
             const posts:BulletinPost[] = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             })) as BulletinPost[];
-            console.log('Posts: ', posts);
             setPosts(posts);
         } catch (error) {
             const err = error as Error;

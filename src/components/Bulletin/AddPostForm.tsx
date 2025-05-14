@@ -83,7 +83,6 @@ export const AddPostForm = ({ onClose }: { onClose: () => void }) => {
         // [3] Save the post to Firestore
         addBulletinPost(firestoreObj);
         // [4] Reset form and close the modal 
-        console.log(`Submitted: ${userInput.title}, ${userInput.description}, ${userInput.category}, ${image.file?.name}, ${postLocation.lat}, ${postLocation.lng}`); // DB
         handleResetAndClose();
     }
 

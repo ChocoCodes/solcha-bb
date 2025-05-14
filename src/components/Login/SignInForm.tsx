@@ -70,7 +70,6 @@ const SignInForm = () => {
     if(loading) return <Loading />;
 
     const handleEmailSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        console.log(`Email: ${email}, Password: ${password}`); // DB
         e.preventDefault();
         Auth.handleEmailSignIn({email, password})
             .then(_user => {

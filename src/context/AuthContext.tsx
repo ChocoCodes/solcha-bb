@@ -64,7 +64,6 @@ export function AuthProvider({ children }: ChildProps) {
             const cachedUser = localStorage.getItem('authUser');
             if(cachedUser) {
                 setIsLoggedIn(true);
-                console.log(cachedUser); // DB
             }
         } catch (error) {
             console.error("Error checking cache:", error);
