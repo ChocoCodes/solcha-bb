@@ -15,7 +15,7 @@ BantayBulkan (from the Filipino words “bantay”—to watch—and “bulkan”
 - **Interactive Safety Map**: A geolocation-based tool using Maps Javascript and Places API that helps users identify nearby evacuation centers and safe zones outside of the 6km Permanent Danger Zone radius, enhancing decision-making during volcanic emergencies.
 
 ### Tech Stack Used:
-[Tech Stack](https://i.imgur.com/71PaBpo.png)
+<img align="center" alt="Tech Stack" width="400" src="https://i.imgur.com/71PaBpo.png">
 
 ### Acknowledgement
 The data used for monitoring and analyzing the status of Kanlaon Volcano was sourced from the following:
