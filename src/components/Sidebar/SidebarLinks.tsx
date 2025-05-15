@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 export const SidebarLinks = () => {
     const { push } = useRouter();
     return (
-        <div className="flex flex-col flex-grow gap-4 lg:flex-row lg:items-center">
+        <div className="flex flex-col flex-grow gap-4 md:flex-row md:items-center">
             {Object.values(SidebarLabelText)
                 .filter(label => label !== SidebarLabelText.SIGNIN)
                 .map((label, index) => {
