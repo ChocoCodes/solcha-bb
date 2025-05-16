@@ -1,47 +1,47 @@
 import { useState, useEffect } from 'react';
 import { db } from '@/firebase/firebase';
-import { 
-    collection, 
-    query, 
-    orderBy,
-    getDocs, 
-    where,
-    Timestamp 
+import {
+  collection,
+  query,
+  orderBy,
+  where,
+  Timestamp,
+  onSnapshot
 } from 'firebase/firestore';
 import { BulletinPost } from '@/utils/types';
 
-// Hook that fetches bulletin posts from Firestore
+// Hook that listens to bulletin posts in real-time from Firestore
 export const useBulletinPosts = () => {
-    const [posts, setPosts] = useState<BulletinPost[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    
-    const fetchPosts = async () => {
-        const oneWeekAgo = Timestamp.fromDate(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
-        setLoading(true);
-        try {
-            const postRef = collection(db, 'bulletin_post');
-            const q = query(postRef,
-                where('date', '>=', oneWeekAgo),
-                orderBy('date', 'desc')
-            );
-            const querySnapshot = await getDocs(q);
-            const posts:BulletinPost[] = querySnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            })) as BulletinPost[];
-            setPosts(posts);
-        } catch (error) {
-            const err = error as Error;
-            console.error('FetchPostsError: ', err.message);
-            setPosts([]);
-        } finally {
-            setLoading(false);
-        }
-    };
+  const [posts, setPosts] = useState<BulletinPost[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        fetchPosts();
-    }, []);
+  useEffect(() => {
+    const oneWeekAgo = Timestamp.fromDate(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
+    const postRef = collection(db, 'bulletin_post');
+    const q = query(
+      postRef,
+      where('date', '>=', oneWeekAgo),
+      orderBy('date', 'desc')
+    );
 
-    return { posts, loading, fetchPosts };
-}
+    const unsubscribe = onSnapshot(
+      q,
+      snapshot => {
+        const mappedPosts: BulletinPost[] = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as BulletinPost[];
+        setPosts(mappedPosts);
+        setLoading(false);
+      },
+      error => {
+        console.error('RealtimeFetchError:', error.message);
+        setLoading(false);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
+
+  return { posts, loading };
+};

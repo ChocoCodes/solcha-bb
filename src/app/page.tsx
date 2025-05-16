@@ -8,6 +8,7 @@ import { HiOutlinePlusSm } from "react-icons/hi";
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { PostCategory, PostCategoryColors } from '@/utils/constants';
+import { isKanlaonCenter } from '@/utils/utils';
 
 export default function Bulletin() {
     // Check if user is logged in - redirect to sign in if not through useAuthCheck
@@ -17,6 +18,8 @@ export default function Bulletin() {
     const [showForm, setShowForm] = useState<boolean>(false);
     // Fetch bulletin posts from Firestore
     const { posts, loading: isPostsLoading } = useBulletinPosts();
+    // Display location that are not at the default KANLAON_COORDS
+    const postsWithValidLoc = posts.filter(post => !isKanlaonCenter(post.position));
     const filteredPosts = posts.filter(post => filterBy === 'owned' ? post.postedBy === currentUser?.displayName : true);
 
     // Display loading screen while checking auth
@@ -33,7 +36,7 @@ export default function Bulletin() {
             <main className="flex flex-col w-screen h-screen lg:p-10">
                 <div className="w-full flex flex-col gap-6 p-3">
                     <div className="relative w-full flex flex-col gap-3 mx-auto items-center pt-2 lg:pt-0">
-                        <VolcanoMap posts={filteredPosts}/>
+                        <VolcanoMap posts={postsWithValidLoc}/>
                         <div className="flex flex-col absolute left-4 top-3">
                             <h1 className="text-2xl lg:text-4xl text-white p-2 font-semibold pl-1 w-80">Volcano Map</h1>
                         </div>

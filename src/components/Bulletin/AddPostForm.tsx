@@ -38,7 +38,6 @@ export const AddPostForm = ({ onClose }: { onClose: () => void }) => {
     const [image, setImage] = useState<ImageData>(defaultImageData);
     const [postLocation, setPostLocation] = useState(KANLAON_COORDS);
     const [isChecked, setIsChecked] = useState<boolean>(false);
-
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const _file = e.target.files?.[0];
         if (_file) {

@@ -1,5 +1,5 @@
 import { doc, GeoPoint, Timestamp } from 'firebase/firestore';
-import { PostCategoryColors } from './constants';
+import { KANLAON_COORDS, PostCategoryColors } from './constants';
 import { BulletinPost, CategoryKey, RawPostFormat } from './types';
 import { db } from '@/firebase/firebase';
 
@@ -46,3 +46,8 @@ export const extractHexColor = (color: string): string => {
 }
 
 export const formatDistance = (distance: number): string => distance.toFixed(2);
+
+export const isKanlaonCenter = (pos: GeoPoint | undefined) => {
+  return pos?.latitude === KANLAON_COORDS.lat &&
+         pos?.longitude === KANLAON_COORDS.lng;
+};
