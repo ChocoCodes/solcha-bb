@@ -3,7 +3,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "GabayBulkan",
+  title: "Bantala",
   description: "desc-here",
   icons: {
     icon: '/favicon.ico',

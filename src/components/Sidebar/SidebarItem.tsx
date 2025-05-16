@@ -7,7 +7,7 @@ export const SidebarItem = ({label, func, className}: SidebarItemProps) => {
             onClick={func}
         >
             <div className={`flex items-center gap-2 align-center ${ className || '' }`}>
-                <span className={`px-4 text-xl font-normal`}>{ label }</span>
+                <span className={`text-xl font-normal`}>{ label }</span>
             </div>
         </button>
     )

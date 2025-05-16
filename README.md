@@ -1,4 +1,4 @@
-# Bantay Bulkan: APAC Solution Challenge 2025 Entry
+# Bantala: APAC Solution Challenge 2025 Entry
 
 ## Team AmBot: Google Developer Groups on Campus - USLS
 AmBot is a three-member collective from the Philippines that embraces the spirit of bayanihan to tackle real-world challenges through tech. What began as “I don’t know” now drives discovery—transforming ideas into digital solutions with global impact.
@@ -8,7 +8,12 @@ AmBot is a three-member collective from the Philippines that embraces the spirit
 - [Javelona, Ignatius Warren Benjamin D.](https://www.linkedin.com/in/ignatius-warren-benjamin-javelona-bab7272a4/ ) | Artificial Intelligence Lead, Data Engineer
 
 ### About the App:
-BantayBulkan (from the Filipino words “bantay”—to watch—and “bulkan”—volcano) is a disaster-preparedness web app focused exclusively on communities near Mt. Kanlaon, one of the most active volcanoes in the Philippines. It empowers residents through intelligent evacuation guidance, an AI-powered chat assistant, and real-time, community-driven emergency bulletins.
+Bantala is a disaster-preparedness web app focused exclusively on communities near Mt. Kanlaon, one of the most active volcanoes in the Philippines.
+It empowers communities through:
+- 🗺️ Interactive Evacuation Mapping
+- 🤖 RAG-Assisted Chatbot
+- 📰 Community-Driven Emergency Bulletins
+
 ### Features
 - **Community Bulletin**: A real-time, crowd-sourced update board where users can share on-the-ground information with varying tags and remarks to strengthen community awareness and response.
 - **RAG-Assisted Chatbot**: A conversational assistant powered by Google Gemini that provides easy-to-understand answers to questions about volcanic activity, safety procedures, and preparedness in real time. Real-time data about the status of the Kanlaon Volcano is extracted through DOST-PHIVOLCS bulletin and database.

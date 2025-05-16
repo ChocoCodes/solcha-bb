@@ -37,7 +37,7 @@ export const Header = ({ currentPage }: HeaderProps) => {
                             side="left"
                             className="flex flex-col items-left justify-center backdrop-blur-xs bg-charcoal/80 p-4"
                         >
-                            <SheetHeader className="flex items-left flex-start p-5 border-b-2 w-full">
+                            <SheetHeader className="flex items-left flex-start pl-4 pr-5 py-5 border-b-2 w-full">
                                 <Image src="/assets/BB-logo-text.svg" alt="logo" width={125} height={125} loading='lazy'/> 
                             </SheetHeader>
                             <SidebarLinks />
@@ -58,7 +58,7 @@ export const Header = ({ currentPage }: HeaderProps) => {
                         </SheetContent>
                     </Sheet>
             </div>
-                <h1 className="text-2xl font-bold text-left p-4">{ currentPage }</h1>
+                <h1 className="text-2xl font-bold text-left">{ currentPage }</h1>
                 {/* container for nav-items - pc mode */}
                 <nav className="hidden md:flex gap-3 md:items-center text-center">
                     <SidebarLinks />
