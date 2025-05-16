@@ -19,9 +19,99 @@ It empowers communities through:
 - **RAG-Assisted Chatbot**: A conversational assistant powered by Google Gemini that provides easy-to-understand answers to questions about volcanic activity, safety procedures, and preparedness in real time. Real-time data about the status of the Kanlaon Volcano is extracted through DOST-PHIVOLCS bulletin and database.
 - **Interactive Safety Map**: A geolocation-based tool using Maps Javascript and Places API that helps users identify nearby evacuation centers and safe zones outside of the 6km Permanent Danger Zone radius, enhancing decision-making during volcanic emergencies.
 
+### Architecture Diagram
+<img align="center" alt="Tech Stack" width="400" src="https://i.imgur.com/ME6edks.png">
+
 ### Tech Stack Used:
 <img align="center" alt="Tech Stack" width="400" src="https://i.imgur.com/71PaBpo.png">
 
+### Other Repositories
+- [RAG System](https://github.com/2BYYYY/team-ambot-bantala-rag)
+- [Web Scraper](https://github.com/2BYYYY/team-ambot-bantala-scraper)
+
+### Directory Structure
+```
+└── chococodes-solcha-bb/
+    ├── README.md
+    ├── components.json
+    ├── eslint.config.mjs
+    ├── next.config.ts
+    ├── package.json
+    ├── postcss.config.mjs
+    ├── tsconfig.json
+    ├── public/
+    │   ├── assets/
+    │   └── fonts/
+    │       ├── Poppins-Bold.woff2
+    │       └── Poppins-Regular.woff2
+    └── src/
+        ├── app/
+        │   ├── layout.tsx
+        │   ├── page.tsx
+        │   ├── api/
+        │   │   └── query/
+        │   │       └── route.ts
+        │   ├── chatbot/
+        │   │   └── page.tsx
+        │   ├── login/
+        │   │   └── page.tsx
+        │   └── map/
+        │       └── page.tsx
+        ├── components/
+        │   ├── Footer.tsx
+        │   ├── Header.tsx
+        │   ├── InputField.tsx
+        │   ├── Loading.tsx
+        │   ├── Bulletin/
+        │   │   ├── AddPostForm.tsx
+        │   │   ├── components.tsx
+        │   │   ├── Post.tsx
+        │   │   └── VolcanoMap.tsx
+        │   ├── Chatbot/
+        │   │   ├── ChatBox.tsx
+        │   │   ├── ChatInput.tsx
+        │   │   ├── ChatWelcome.tsx
+        │   │   └── components.tsx
+        │   ├── Login/
+        │   │   ├── components.tsx
+        │   │   ├── MaskedImage.tsx
+        │   │   └── SignInForm.tsx
+        │   ├── Map/
+        │   │   └── MapMarker.tsx
+        │   ├── Sidebar/
+        │   │   ├── components.tsx
+        │   │   ├── SidebarItem.tsx
+        │   │   └── SidebarLinks.tsx
+        │   └── ui/
+        │       ├── card.tsx
+        │       ├── checkbox.tsx
+        │       ├── select.tsx
+        │       └── sheet.tsx
+        ├── context/
+        │   └── AuthContext.tsx
+        ├── firebase/
+        │   ├── addBulletinPost.ts
+        │   ├── addUserCollection.ts
+        │   ├── auth.ts
+        │   ├── firebase.ts
+        │   └── uploadImage.ts
+        ├── hooks/
+        │   ├── hooks.ts
+        │   ├── useAuthCheck.ts
+        │   ├── useBulletinPosts.ts
+        │   └── useNearbySearch.ts
+        ├── lib/
+        │   └── utils.ts
+        ├── styles/
+        │   └── globals.css
+        └── utils/
+            ├── constants.ts
+            ├── haversine.ts
+            ├── sampleData.ts
+            ├── types.ts
+            └── utils.ts
+
+```
 ### Acknowledgement
 The data used for monitoring and analyzing the status of Kanlaon Volcano was sourced from the following:
 
@@ -50,3 +140,10 @@ This system integrates data labeled as "public" from the **Department of Science
 We fully respect and follow these policies, ensuring that this chatbot remains a **support tool for education and disaster preparedness**, not a substitute for official alerts or scientific authority.
 
 For real-time advisories and official updates, always refer to [DOST-PHIVOLCS](https://wovodat.phivolcs.dost.gov.ph/) and [NDRRMC](https://ndrrmc.gov.ph).
+
+---
+<p align="center">
+  <strong>APAC Solution Challenge 2025</strong><br/>
+  <em><a href="https://www.facebook.com/dsc.usls" target="_blank" rel="noopener noreferrer">Google Developer Groups on Campus - University of St. La Salle</a></em><br/><br/>
+  All rights reserved | Octavio, Labistre, Javelona
+</p>
